@@ -42,7 +42,7 @@ const Register = () => {
         <meta property="og:type" content="website" />
       </Helmet>
 
-      <div className="min-h-screen" style={{ backgroundColor: '#FAF9F6', color: '#444444' }}>
+      <div className="min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
         <AuthenticationWrapper
           title="Create Your Account"
           subtitle="Join thousands of farmers using smart technology to improve their yields"
