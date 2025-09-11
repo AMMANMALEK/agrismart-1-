@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import Select from '../../../components/ui/Select';
 import Icon from '../../../components/AppIcon';
+import { useTranslation } from 'react-i18next';
 
 const LanguageSelector = () => {
+  const { i18n, t } = useTranslation();
   const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const languageOptions = [
@@ -19,31 +21,31 @@ const LanguageSelector = () => {
   ];
 
   useEffect(() => {
-    // Load saved language preference
-    const savedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+    const savedLanguage = localStorage.getItem('selectedLanguage') || i18n.language || 'en';
     setSelectedLanguage(savedLanguage);
-  }, []);
+    if (i18n.language !== savedLanguage) {
+      i18n.changeLanguage(savedLanguage);
+    }
+  }, [i18n]);
 
   const handleLanguageChange = (value) => {
     setSelectedLanguage(value);
     localStorage.setItem('selectedLanguage', value);
-    
-    // In a real app, this would trigger language change across the app
-    console.log('Language changed to:', value);
+    i18n.changeLanguage(value);
   };
 
   return (
     <div className="space-y-3">
       <div className="flex items-center space-x-2 text-muted-foreground">
         <Icon name="Globe" size={16} />
-        <span className="text-sm font-medium">Select Language</span>
+        <span className="text-sm font-medium">{t('Select Language') || 'Select Language'}</span>
       </div>
       
       <Select
         options={languageOptions}
         value={selectedLanguage}
         onChange={handleLanguageChange}
-        placeholder="Choose your language"
+        placeholder={t('Choose your language') || 'Choose your language'}
         className="w-full"
       />
     </div>
