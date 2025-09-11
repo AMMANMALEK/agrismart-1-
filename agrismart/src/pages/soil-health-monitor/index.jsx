@@ -4,6 +4,7 @@ import MainSidebar from '../../components/ui/MainSidebar';
 import MobileNavigationBar from '../../components/ui/MobileNavigationBar';
 
 import Button from '../../components/ui/Button';
+import { useTranslation } from 'react-i18next';
 import SoilMetricsCard from './components/SoilMetricsCard';
 import SoilTrendChart from './components/SoilTrendChart';
 import SoilTestingCard from './components/SoilTestingCard';
@@ -11,6 +12,7 @@ import SoilRecommendationCard from './components/SoilRecommendationCard';
 import SoilParameterFilter from './components/SoilParameterFilter';
 
 const SoilHealthMonitor = () => {
+  const { t } = useTranslation();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [selectedField, setSelectedField] = useState('field_1');
   const [filters, setFilters] = useState({
@@ -201,7 +203,7 @@ const SoilHealthMonitor = () => {
   return (
     <>
       <Helmet>
-        <title>Soil Health Monitor - AgriSmart</title>
+        <title>{t('soil.title')} - AgriSmart</title>
         <meta name="description" content="Monitor and analyze critical soil parameters for optimal crop management decisions with real-time metrics and recommendations." />
       </Helmet>
       <div className="min-h-screen bg-background">
@@ -213,15 +215,15 @@ const SoilHealthMonitor = () => {
             <div className="px-4 lg:px-8 py-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <h1 className="text-2xl font-bold text-foreground">Soil Health Monitor</h1>
-                  <p className="text-muted-foreground">Track and analyze critical soil parameters for optimal crop management</p>
+                  <h1 className="text-2xl font-bold text-foreground">{t('soil.title')}</h1>
+                  <p className="text-muted-foreground">{t('soil.subtitle')}</p>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Button variant="outline" iconName="Download" iconPosition="left">
-                    Export Report
+                    {t('soil.export')}
                   </Button>
                   <Button variant="default" iconName="RefreshCw" iconPosition="left">
-                    Refresh Data
+                    {t('soil.refresh')}
                   </Button>
                 </div>
               </div>
@@ -234,7 +236,7 @@ const SoilHealthMonitor = () => {
 
             {/* Current Soil Metrics */}
             <div>
-              <h2 className="text-xl font-semibold text-foreground mb-4">Current Soil Metrics</h2>
+              <h2 className="text-xl font-semibold text-foreground mb-4">{t('soil.currentMetrics')}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {soilMetrics?.map((metric, index) => (
                   <SoilMetricsCard
@@ -255,12 +257,12 @@ const SoilHealthMonitor = () => {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <SoilTrendChart
                 data={trendData}
-                title="NPK Levels Trend"
+                title={t('soil.trendNpk')}
                 parameters={['nitrogen', 'phosphorus', 'potassium']}
               />
               <SoilTrendChart
                 data={trendData}
-                title="pH & Moisture Trend"
+                title={t('soil.trendPhMoist')}
                 parameters={['ph', 'moisture']}
               />
             </div>
@@ -268,9 +270,9 @@ const SoilHealthMonitor = () => {
             {/* Recommendations */}
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold text-foreground">Soil Health Recommendations</h2>
+                <h2 className="text-xl font-semibold text-foreground">{t('soil.recommendations')}</h2>
                 <Button variant="outline" size="sm" iconName="Settings" iconPosition="left">
-                  Customize
+                  {t('soil.customize')}
                 </Button>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -287,9 +289,9 @@ const SoilHealthMonitor = () => {
             {/* Soil Testing Facilities */}
             <div>
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold text-foreground">Nearby Soil Testing Facilities</h2>
+                <h2 className="text-xl font-semibold text-foreground">{t('soil.testingFacilities')}</h2>
                 <Button variant="outline" size="sm" iconName="MapPin" iconPosition="left">
-                  View Map
+                  {t('soil.viewMap')}
                 </Button>
               </div>
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -305,19 +307,19 @@ const SoilHealthMonitor = () => {
 
             {/* Quick Actions */}
             <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">
-              <h3 className="text-lg font-semibold text-card-foreground mb-4">Quick Actions</h3>
+              <h3 className="text-lg font-semibold text-card-foreground mb-4">{t('soil.quickActions')}</h3>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Button variant="outline" fullWidth iconName="Calendar" iconPosition="left">
-                  Schedule Test
+                  {t('soil.scheduleTest')}
                 </Button>
                 <Button variant="outline" fullWidth iconName="FileText" iconPosition="left">
-                  View History
+                  {t('soil.viewHistory')}
                 </Button>
                 <Button variant="outline" fullWidth iconName="Bell" iconPosition="left">
-                  Set Alerts
+                  {t('soil.setAlerts')}
                 </Button>
                 <Button variant="outline" fullWidth iconName="Share2" iconPosition="left">
-                  Share Report
+                  {t('soil.shareReport')}
                 </Button>
               </div>
             </div>

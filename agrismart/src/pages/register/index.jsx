@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import AuthenticationWrapper from '../../components/ui/AuthenticationWrapper';
+import { useTranslation } from 'react-i18next';
 import RegistrationForm from './components/RegistrationForm';
 import TrustIndicators from './components/TrustIndicators';
 import VoiceAssistant from './components/VoiceAssistant';
@@ -28,6 +29,7 @@ const Register = () => {
     setShowVoiceAssistant(!showVoiceAssistant);
   };
 
+  const { t } = useTranslation();
   return (
     <>
       <Helmet>
@@ -44,8 +46,8 @@ const Register = () => {
 
       <div className="min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
         <AuthenticationWrapper
-          title="Create Your Account"
-          subtitle="Join thousands of farmers using smart technology to improve their yields"
+          title={t('register.title')}
+          subtitle={t('register.subtitle')}
           theme="plain"
         >
           <div className="space-y-6">

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthenticationWrapper from '../../components/ui/AuthenticationWrapper';
+import { useTranslation } from 'react-i18next';
 import LoginForm from './components/LoginForm';
 import LanguageSelector from './components/LanguageSelector';
 import TrustIndicators from './components/TrustIndicators';
@@ -18,11 +19,12 @@ const LoginPage = () => {
     }
   }, [navigate]);
 
+  const { t } = useTranslation();
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#FFFFFF' }}>
       <AuthenticationWrapper
-        title="Welcome Back"
-        subtitle="Sign in to your AgriSmart account to access your personalized farming dashboard"
+        title={t('login.title')}
+        subtitle={t('login.subtitle')}
         theme="plain"
       >
         <div className="space-y-6">

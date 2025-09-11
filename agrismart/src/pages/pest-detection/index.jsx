@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import MainSidebar from '../../components/ui/MainSidebar';
 import MobileNavigationBar from '../../components/ui/MobileNavigationBar';
 import Icon from '../../components/AppIcon';
@@ -11,6 +12,7 @@ import WeatherRiskForecast from './components/WeatherRiskForecast';
 import CommunityReports from './components/CommunityReports';
 
 const PestDetection = () => {
+  const { t } = useTranslation();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisResults, setAnalysisResults] = useState(null);
@@ -451,16 +453,14 @@ const PestDetection = () => {
         <header className="bg-card border-b border-border p-4 lg:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-card-foreground">Pest Detection</h1>
-              <p className="text-muted-foreground mt-1">
-                AI-powered pest identification and management solutions
-              </p>
+              <h1 className="text-2xl font-bold text-card-foreground">{t('pest.title')}</h1>
+              <p className="text-muted-foreground mt-1">{t('pest.subtitle')}</p>
             </div>
             
             <div className="flex items-center space-x-3">
               <div className="hidden sm:flex items-center space-x-2 text-sm text-muted-foreground">
                 <Icon name="Zap" size={16} color="var(--color-success)" />
-                <span>AI Analysis Ready</span>
+                <span>{t('pest.aiReady')}</span>
               </div>
               <button className="p-2 hover:bg-muted rounded-lg transition-agricultural">
                 <Icon name="Settings" size={20} color="var(--color-muted-foreground)" />
@@ -482,7 +482,13 @@ const PestDetection = () => {
                 }`}
               >
                 <Icon name={tab?.icon} size={16} color="currentColor" />
-                <span>{tab?.label}</span>
+                <span>{
+                  tab?.id === 'upload' ? t('pest.tabImage') :
+                  tab?.id === 'gallery' ? t('pest.tabGallery') :
+                  tab?.id === 'history' ? t('pest.tabHistory') :
+                  tab?.id === 'weather' ? t('pest.tabWeather') :
+                  t('pest.tabCommunity')
+                }</span>
               </button>
             ))}
           </div>

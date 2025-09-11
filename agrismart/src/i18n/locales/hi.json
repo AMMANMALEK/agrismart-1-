@@ -27,6 +27,57 @@
     "trusted": "10k+ किसानों का भरोसा",
     "award": "पुरस्कार विजेता",
     "or": "या"
+  },
+  "dashboard": {
+    "greetMorning": "सुप्रभात",
+    "greetAfternoon": "शुभ दोपहर",
+    "greetEvening": "शुभ संध्या",
+    "notifications": "सूचनाएँ",
+    "settings": "सेटिंग्स",
+    "quickActions": "त्वरित क्रियाएँ",
+    "soilAnalysis": "मृदा विश्लेषण",
+    "soilAnalysisDesc": "मृदा स्वास्थ्य जाँचें",
+    "pestDetection": "कीट पहचान",
+    "pestDetectionDesc": "एआई आधारित कीट पहचान",
+    "reports": "रिपोर्ट्स",
+    "reportsDesc": "एनालिटिक्स और इनसाइट्स देखें",
+    "todaysTips": "आज की सलाह",
+    "tipIrrigationTitle": "उत्तम सिंचाई समय",
+    "tipIrrigationBody": "सुबह 6-8 बजे के बीच सिंचाई करें ताकि अवशोषण बेहतर हो।",
+    "tipPestTitle": "कीट रोकथाम",
+    "tipPestBody": "पत्तियों की निचली सतह जाँचें। रोकथाम उपचार से बेहतर है।",
+    "farmPerformance": "फार्म प्रदर्शन",
+    "efficiency": "दक्षता स्कोर",
+    "sustainability": "सस्टेनेबिलिटी",
+    "profitability": "लाभप्रदता"
+  },
+  "soil": {
+    "title": "मृदा स्वास्थ्य मॉनिटर",
+    "subtitle": "उत्तम फसल प्रबंधन हेतु मृदा पैरामीटर ट्रैक करें",
+    "export": "रिपोर्ट निर्यात",
+    "refresh": "डेटा रिफ्रेश",
+    "currentMetrics": "वर्तमान मृदा मापदंड",
+    "trendNpk": "NPK स्तर प्रवृत्ति",
+    "trendPhMoist": "pH व नमी प्रवृत्ति",
+    "recommendations": "मृदा स्वास्थ्य सिफारिशें",
+    "customize": "कस्टमाइज़",
+    "testingFacilities": "नज़दीकी मृदा परीक्षण केंद्र",
+    "viewMap": "मैप देखें",
+    "quickActions": "त्वरित क्रियाएँ",
+    "scheduleTest": "टेस्ट शेड्यूल करें",
+    "viewHistory": "इतिहास देखें",
+    "setAlerts": "अलर्ट सेट करें",
+    "shareReport": "रिपोर्ट साझा करें"
+  },
+  "pest": {
+    "title": "कीट पहचान",
+    "subtitle": "एआई आधारित कीट पहचान और प्रबंधन",
+    "aiReady": "एआई विश्लेषण तैयार",
+    "tabImage": "इमेज विश्लेषण",
+    "tabGallery": "कीट गैलरी",
+    "tabHistory": "इतिहास",
+    "tabWeather": "मौसम जोखिम",
+    "tabCommunity": "समुदाय"
   }
 }
 

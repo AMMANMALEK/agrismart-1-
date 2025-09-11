@@ -1,0 +1,84 @@
+{
+  "app": {
+    "name": "એગ્રીસ્માર્ટ",
+    "tagline": "આધુનિક ખેતી માટે સ્માર્ટ સોલ્યુશન્સ"
+  },
+  "login": {
+    "title": "પાછા આવવા માટે સ્વાગત છે",
+    "subtitle": "તમારા વ્યક્તિગત ફાર્મિંગ ડેશબોર્ડ માટે સાઇન ઇન કરો",
+    "email": "ઇમેઇલ સરનામું",
+    "password": "પાસવર્ડ",
+    "remember": "મને યાદ રાખો",
+    "forgot": "પાસવર્ડ ભૂલી ગયા?",
+    "signin": "સાઇન ઇન",
+    "signingIn": "સાઇન ઇન થઈ રહ્યું છે...",
+    "continueGoogle": "Google સાથે ચાલુ રાખો",
+    "failed": "લૉગિન નિષ્ફળ થયું",
+    "invalid": "અમાન્ય વિગત. ઇમેઇલ: {{email}} અને પાસવર્ડ: {{password}} નો ઉપયોગ કરો"
+  },
+  "register": {
+    "title": "તમારું એકાઉન્ટ બનાવો",
+    "subtitle": "તમારી ઉપજ સુધારવા માટે સ્માર્ટ ટેકનોલોજીનો ઉપયોગ કરો",
+    "create": "એકાઉન્ટ બનાવો",
+    "creating": "એકાઉન્ટ બની રહ્યું છે..."
+  },
+  "common": {
+    "secure": "સુરક્ષિત",
+    "trusted": "10k+ ખેડૂતોનો વિશ્વાસ",
+    "award": "એવોર્ડ વિજેતા",
+    "or": "અથવા"
+  },
+  "dashboard": {
+    "greetMorning": "સુપ્રભાત",
+    "greetAfternoon": "શુભ બપોર",
+    "greetEvening": "શુભ સાંજ",
+    "notifications": "સૂચનાઓ",
+    "settings": "સેટિંગ્સ",
+    "quickActions": "ઝડપી ક્રિયાઓ",
+    "soilAnalysis": "માટી વિશ્લેષણ",
+    "soilAnalysisDesc": "માટીનું આરોગ્ય તપાસો",
+    "pestDetection": "કિટક ઓળખ",
+    "pestDetectionDesc": "એઆઈ આધારિત કિટક ઓળખ",
+    "reports": "રિપોર્ટ્સ",
+    "reportsDesc": "એનલિટિક્સ અને ઇનસાઇટ્સ જુઓ",
+    "todaysTips": "આજની સલાહ",
+    "tipIrrigationTitle": "સર્વોત્તમ સિંચાઈ સમય",
+    "tipIrrigationBody": "સવારના 6-8 વચ્ચે સિંચાઈ કરો જેથી અવશોષણ સારું થાય.",
+    "tipPestTitle": "કિટક નિવારણ",
+    "tipPestBody": "પાંદડાની નીચી બાજુ તપાસો. નિવારણ સારવારથી સારું છે.",
+    "farmPerformance": "ફાર્મ પ્રદર્શન",
+    "efficiency": "કાર્યક્ષમતા સ્કોર",
+    "sustainability": "સસ્‍તેનેબિલિટી",
+    "profitability": "લાભપ્રદતા"
+  },
+  "soil": {
+    "title": "માટી આરોગ્ય મોનિટર",
+    "subtitle": "ઉત્તમ પાક સંચાલન માટે મહત્વના પરિમાણો ટ્રેક કરો",
+    "export": "રિપોર્ટ એક્સપોર્ટ",
+    "refresh": "ડેટા રિફ્રેશ",
+    "currentMetrics": "વર્તમાન માટી માપદંડ",
+    "trendNpk": "NPK લેવલ ટ્રેન્ડ",
+    "trendPhMoist": "pH અને ભેજ ટ્રેન્ડ",
+    "recommendations": "માટી આરોગ્ય ભલામણો",
+    "customize": "કસ્ટમાઇઝ",
+    "testingFacilities": "નજીકના માટી પરીક્ષણ કેન્દ્રો",
+    "viewMap": "મેપ જુઓ",
+    "quickActions": "ઝડપી ક્રિયાઓ",
+    "scheduleTest": "ટેસ્ટ શેડ્યૂલ કરો",
+    "viewHistory": "ઇતિહાસ જુઓ",
+    "setAlerts": "ચેતવણીઓ સેટ કરો",
+    "shareReport": "રિપોર્ટ શેર કરો"
+  },
+  "pest": {
+    "title": "કિટક ઓળખ",
+    "subtitle": "એઆઈ આધારિત કિટક ઓળખ અને મેનેજમેન્ટ",
+    "aiReady": "એઆઈ વિશ્લેષણ તૈયાર",
+    "tabImage": "ઇમેજ વિશ્લેષણ",
+    "tabGallery": "કિટક ગેલેરી",
+    "tabHistory": "ઇતિહાસ",
+    "tabWeather": "વેધર જોખમ",
+    "tabCommunity": "કમ્યુનિટી"
+  }
+}
+
+

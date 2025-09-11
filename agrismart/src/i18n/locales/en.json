@@ -27,6 +27,57 @@
     "trusted": "Trusted by 10k+ farmers",
     "award": "Award winning",
     "or": "or"
+  },
+  "dashboard": {
+    "greetMorning": "Good Morning",
+    "greetAfternoon": "Good Afternoon",
+    "greetEvening": "Good Evening",
+    "notifications": "Notifications",
+    "settings": "Settings",
+    "quickActions": "Quick Actions",
+    "soilAnalysis": "Soil Analysis",
+    "soilAnalysisDesc": "Check soil health status",
+    "pestDetection": "Pest Detection",
+    "pestDetectionDesc": "AI-powered pest identification",
+    "reports": "Reports",
+    "reportsDesc": "View analytics & insights",
+    "todaysTips": "Today's Tips",
+    "tipIrrigationTitle": "Optimal Irrigation Time",
+    "tipIrrigationBody": "Water your crops between 6-8 AM for best absorption and minimal evaporation.",
+    "tipPestTitle": "Pest Prevention",
+    "tipPestBody": "Check undersides of leaves for early pest detection. Prevention is better than cure.",
+    "farmPerformance": "Farm Performance",
+    "efficiency": "Efficiency Score",
+    "sustainability": "Sustainability",
+    "profitability": "Profitability"
+  },
+  "soil": {
+    "title": "Soil Health Monitor",
+    "subtitle": "Track and analyze critical soil parameters for optimal crop management",
+    "export": "Export Report",
+    "refresh": "Refresh Data",
+    "currentMetrics": "Current Soil Metrics",
+    "trendNpk": "NPK Levels Trend",
+    "trendPhMoist": "pH & Moisture Trend",
+    "recommendations": "Soil Health Recommendations",
+    "customize": "Customize",
+    "testingFacilities": "Nearby Soil Testing Facilities",
+    "viewMap": "View Map",
+    "quickActions": "Quick Actions",
+    "scheduleTest": "Schedule Test",
+    "viewHistory": "View History",
+    "setAlerts": "Set Alerts",
+    "shareReport": "Share Report"
+  },
+  "pest": {
+    "title": "Pest Detection",
+    "subtitle": "AI-powered pest identification and management solutions",
+    "aiReady": "AI Analysis Ready",
+    "tabImage": "Image Analysis",
+    "tabGallery": "Pest Gallery",
+    "tabHistory": "History",
+    "tabWeather": "Weather Risk",
+    "tabCommunity": "Community"
   }
 }
 
