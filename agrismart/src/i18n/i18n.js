@@ -19,7 +19,13 @@ i18n
   .init({
     resources,
     fallbackLng: 'en',
-    interpolation: { escapeValue: false }
+    lng: 'en', // Set default language
+    debug: true, // Enable debug mode to see what's happening
+    interpolation: { escapeValue: false },
+    detection: {
+      order: ['localStorage', 'navigator', 'htmlTag'],
+      caches: ['localStorage']
+    }
   });
 
 export default i18n;
