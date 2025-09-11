@@ -42,10 +42,11 @@ const Register = () => {
         <meta property="og:type" content="website" />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-black text-[#39ff14]">
         <AuthenticationWrapper
           title="Create Your Account"
           subtitle="Join thousands of farmers using smart technology to improve their yields"
+          theme="neon"
         >
           <div className="space-y-6">
             {/* Progress Indicator */}

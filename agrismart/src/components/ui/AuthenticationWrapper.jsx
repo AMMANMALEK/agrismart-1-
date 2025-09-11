@@ -1,17 +1,19 @@
 import React from 'react';
 import Icon from '../AppIcon';
 
-const AuthenticationWrapper = ({ children, title, subtitle }) => {
+const AuthenticationWrapper = ({ children, title, subtitle, theme = 'default' }) => {
   return (
-    <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden">
+    <div className={theme === 'neon' ? "min-h-screen relative flex items-center justify-center p-4 overflow-hidden bg-black text-[#39ff14]" : "min-h-screen relative flex items-center justify-center p-4 overflow-hidden"}>
       {/* Background gradient and decorative shapes */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/60 via-white to-emerald-50 dark:from-emerald-950/40 dark:via-background dark:to-emerald-900/20" />
-        <div className="pointer-events-none">
-          <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl dark:bg-emerald-800/30" />
-          <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-lime-200/40 blur-3xl dark:bg-lime-800/20" />
+      {theme !== 'neon' && (
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/60 via-white to-emerald-50 dark:from-emerald-950/40 dark:via-background dark:to-emerald-900/20" />
+          <div className="pointer-events-none">
+            <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl dark:bg-emerald-800/30" />
+            <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-lime-200/40 blur-3xl dark:bg-lime-800/20" />
+          </div>
         </div>
-      </div>
+      )}
       <div className="w-full max-w-md">
         {/* Logo and Branding */}
         <div className="text-center mb-8">
@@ -20,16 +22,16 @@ const AuthenticationWrapper = ({ children, title, subtitle }) => {
               <Icon name="Leaf" size={32} color="white" />
             </div>
           </div>
-          <h1 className="text-2xl font-bold text-foreground mb-2">AgriSmart</h1>
-          <p className="text-muted-foreground text-sm">Smart farming solutions for modern agriculture</p>
+          <h1 className={theme === 'neon' ? "text-2xl font-bold mb-2" : "text-2xl font-bold text-foreground mb-2"}>AgriSmart</h1>
+          <p className={theme === 'neon' ? "text-sm opacity-80" : "text-muted-foreground text-sm"}>Smart farming solutions for modern agriculture</p>
         </div>
 
         {/* Authentication Card */}
-        <div className="bg-card/80 backdrop-blur-sm rounded-2xl shadow-agricultural-lg border border-border p-6">
+        <div className={theme === 'neon' ? "rounded-2xl p-6 border backdrop-blur-sm bg-black/60 border-[#39ff14]/30 shadow-[0_0_20px_rgba(57,255,20,0.15)]" : "bg-card/80 backdrop-blur-sm rounded-2xl shadow-agricultural-lg border border-border p-6"}>
           <div className="mb-6">
-            <h2 className="text-xl font-semibold text-card-foreground mb-2">{title}</h2>
+            <h2 className={theme === 'neon' ? "text-xl font-semibold mb-2" : "text-xl font-semibold text-card-foreground mb-2"}>{title}</h2>
             {subtitle && (
-              <p className="text-muted-foreground text-sm">{subtitle}</p>
+              <p className={theme === 'neon' ? "text-sm opacity-80" : "text-muted-foreground text-sm"}>{subtitle}</p>
             )}
           </div>
           
@@ -38,7 +40,7 @@ const AuthenticationWrapper = ({ children, title, subtitle }) => {
 
         {/* Trust Indicators */}
         <div className="mt-6 text-center">
-          <div className="flex items-center justify-center space-x-6 text-muted-foreground text-xs">
+          <div className={theme === 'neon' ? "flex items-center justify-center space-x-6 text-xs opacity-80" : "flex items-center justify-center space-x-6 text-muted-foreground text-xs"}>
             <div className="flex items-center space-x-1">
               <Icon name="Shield" size={14} color="var(--color-success)" />
               <span>Secure</span>
