@@ -26,7 +26,9 @@
     "secure": "સુરક્ષિત",
     "trusted": "10k+ ખેડૂતોનો વિશ્વાસ",
     "award": "એવોર્ડ વિજેતા",
-    "or": "અથવા"
+    "or": "અથવા",
+    "language": "ભાષા",
+    "logout": "લોગ આઉટ"
   },
   "dashboard": {
     "greetMorning": "સુપ્રભાત",
@@ -49,7 +51,8 @@
     "farmPerformance": "ફાર્મ પ્રદર્શન",
     "efficiency": "કાર્યક્ષમતા સ્કોર",
     "sustainability": "સસ્‍તેનેબિલિટી",
-    "profitability": "લાભપ્રદતા"
+    "profitability": "લાભપ્રદતા",
+    "farmManager": "ફાર્મ મેનેજર"
   },
   "soil": {
     "title": "માટી આરોગ્ય મોનિટર",

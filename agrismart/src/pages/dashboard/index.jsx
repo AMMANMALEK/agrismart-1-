@@ -44,6 +44,8 @@ const Dashboard = () => {
     }
   }, [currentTime, t, i18n.language]);
 
+  const locale = i18n?.language === 'hi' ? 'hi-IN' : i18n?.language === 'gu' ? 'gu-IN' : 'en-US';
+
   const quickActions = [
     {
       title: t('dashboard.soilAnalysis'),
@@ -83,15 +85,15 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-card-foreground">
-                {greeting}, Farm Manager! 👋
+                {greeting}, {t('dashboard.farmManager')}! 👋
               </h1>
               <p className="text-muted-foreground mt-1">
-                {currentTime?.toLocaleDateString('en-US', { 
+                {currentTime?.toLocaleDateString(locale, { 
                   weekday: 'long', 
                   year: 'numeric', 
                   month: 'long', 
                   day: 'numeric' 
-                })} • {currentTime?.toLocaleTimeString('en-US', { 
+                })} • {currentTime?.toLocaleTimeString(locale, { 
                   hour: '2-digit', 
                   minute: '2-digit' 
                 })}
@@ -114,7 +116,7 @@ const Dashboard = () => {
               {showSettings && (
                 <div className="absolute right-0 top-12 w-64 bg-card border border-border rounded-lg shadow-agricultural-lg p-3 z-20">
                   <div className="mb-3">
-                    <p className="text-sm text-muted-foreground mb-2">Language</p>
+                    <p className="text-sm text-muted-foreground mb-2">{t('common.language')}</p>
                     <LanguageSelector />
                   </div>
                   <div className="pt-2 border-t border-border">
@@ -128,7 +130,7 @@ const Dashboard = () => {
                         navigate('/login');
                       }}
                     >
-                      Logout
+                      {t('common.logout')}
                     </Button>
                   </div>
                 </div>

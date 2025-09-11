@@ -26,7 +26,9 @@
     "secure": "Secure",
     "trusted": "Trusted by 10k+ farmers",
     "award": "Award winning",
-    "or": "or"
+    "or": "or",
+    "language": "Language",
+    "logout": "Logout"
   },
   "dashboard": {
     "greetMorning": "Good Morning",
@@ -49,7 +51,8 @@
     "farmPerformance": "Farm Performance",
     "efficiency": "Efficiency Score",
     "sustainability": "Sustainability",
-    "profitability": "Profitability"
+    "profitability": "Profitability",
+    "farmManager": "Farm Manager"
   },
   "soil": {
     "title": "Soil Health Monitor",

@@ -26,7 +26,9 @@
     "secure": "सुरक्षित",
     "trusted": "10k+ किसानों का भरोसा",
     "award": "पुरस्कार विजेता",
-    "or": "या"
+    "or": "या",
+    "language": "भाषा",
+    "logout": "लॉगआउट"
   },
   "dashboard": {
     "greetMorning": "सुप्रभात",
@@ -49,7 +51,8 @@
     "farmPerformance": "फार्म प्रदर्शन",
     "efficiency": "दक्षता स्कोर",
     "sustainability": "सस्टेनेबिलिटी",
-    "profitability": "लाभप्रदता"
+    "profitability": "लाभप्रदता",
+    "farmManager": "फार्म प्रबंधक"
   },
   "soil": {
     "title": "मृदा स्वास्थ्य मॉनिटर",
