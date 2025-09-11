@@ -46,7 +46,7 @@ const Register = () => {
         <AuthenticationWrapper
           title="Create Your Account"
           subtitle="Join thousands of farmers using smart technology to improve their yields"
-          theme="earth"
+          theme="plain"
         >
           <div className="space-y-6">
             {/* Progress Indicator */}

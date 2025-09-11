@@ -23,7 +23,7 @@ const LoginPage = () => {
       <AuthenticationWrapper
         title="Welcome Back"
         subtitle="Sign in to your AgriSmart account to access your personalized farming dashboard"
-        theme="earth"
+        theme="plain"
       >
         <div className="space-y-6">
           {/* Main Login Form */}

@@ -8,6 +8,8 @@ const AuthenticationWrapper = ({ children, title, subtitle, theme = 'default' })
         ? "min-h-screen relative flex items-center justify-center p-4 overflow-hidden bg-black text-[#39ff14]"
         : theme === 'earth'
         ? "min-h-screen relative flex items-center justify-center p-4 overflow-hidden bg-[#FAF9F6] text-[#444444]"
+        : theme === 'plain'
+        ? "min-h-screen relative flex items-center justify-center p-4 overflow-hidden bg-white"
         : "min-h-screen relative flex items-center justify-center p-4 overflow-hidden"
     }>
       {/* Background gradient and decorative shapes */}
