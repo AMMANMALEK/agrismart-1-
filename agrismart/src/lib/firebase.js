@@ -8,9 +8,24 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const googleProvider = new GoogleAuthProvider();
+let app;
+let authInstance;
+let providerInstance;
+
+try {
+  if (firebaseConfig.apiKey && firebaseConfig.authDomain && firebaseConfig.projectId && firebaseConfig.appId) {
+    app = initializeApp(firebaseConfig);
+    authInstance = getAuth(app);
+    providerInstance = new GoogleAuthProvider();
+  } else {
+    console.warn("Firebase env vars missing. Skipping Firebase initialization in dev.");
+  }
+} catch (e) {
+  console.error("Firebase initialization failed", e);
+}
+
+export const auth = authInstance;
+export const googleProvider = providerInstance;
 export { RecaptchaVerifier };
 
 
