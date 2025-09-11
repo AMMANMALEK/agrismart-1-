@@ -19,11 +19,11 @@ const LoginPage = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-black text-[#39ff14]">
+    <div className="min-h-screen" style={{ backgroundColor: '#FAF9F6', color: '#444444' }}>
       <AuthenticationWrapper
         title="Welcome Back"
         subtitle="Sign in to your AgriSmart account to access your personalized farming dashboard"
-        theme="neon"
+        theme="earth"
       >
         <div className="space-y-6">
           {/* Main Login Form */}

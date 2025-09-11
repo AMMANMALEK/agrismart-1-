@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
 import Icon from '../../../components/AppIcon';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../../../lib/firebase';
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -14,6 +16,20 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
+
+  const handleGoogle = async () => {
+    try {
+      setIsLoading(true);
+      const res = await signInWithPopup(auth, googleProvider);
+      localStorage.setItem('isAuthenticated', 'true');
+      localStorage.setItem('userEmail', res?.user?.email || '');
+      navigate('/dashboard');
+    } catch (e) {
+      setErrors({ general: 'Google sign-in failed. Please try again.' });
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   // Mock credentials for demonstration
   const mockCredentials = {
@@ -162,6 +178,22 @@ const LoginForm = () => {
         iconPosition="right"
       >
         {isLoading ? 'Signing In...' : 'Sign In'}
+      </Button>
+
+      <div className="relative py-2 text-center text-xs opacity-70">
+        <span className="px-2 bg-transparent">or</span>
+      </div>
+
+      <Button
+        type="button"
+        variant="outline"
+        size="lg"
+        fullWidth
+        onClick={handleGoogle}
+        iconName="Chrome"
+        iconPosition="left"
+      >
+        Continue with Google
       </Button>
     </form>
   );
