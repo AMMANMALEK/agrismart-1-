@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Icon from '../../components/AppIcon';
 import Button from '../../components/ui/Button';
 import MainSidebar from '../../components/ui/MainSidebar';
 import MobileNavigationBar from '../../components/ui/MobileNavigationBar';
+import LanguageSelector from '../login/components/LanguageSelector';
 
 // Import all dashboard components
 import WeatherCard from './components/WeatherCard';
@@ -18,9 +19,11 @@ import QuickStatsCard from './components/QuickStatsCard';
 
 const Dashboard = () => {
   const { t, i18n } = useTranslation();
+  const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [greeting, setGreeting] = useState('');
+  const [showSettings, setShowSettings] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -94,13 +97,42 @@ const Dashboard = () => {
                 })}
               </p>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="relative flex items-center space-x-3">
               <Button variant="outline" size="sm" iconName="Bell" iconPosition="left">
                 <span className="hidden sm:inline">{t('dashboard.notifications')}</span>
               </Button>
-              <Button variant="outline" size="sm" iconName="Settings" iconPosition="left">
+              <Button
+                variant="outline"
+                size="sm"
+                iconName="Settings"
+                iconPosition="left"
+                onClick={() => setShowSettings((v) => !v)}
+              >
                 <span className="hidden sm:inline">{t('dashboard.settings')}</span>
               </Button>
+
+              {showSettings && (
+                <div className="absolute right-0 top-12 w-64 bg-card border border-border rounded-lg shadow-agricultural-lg p-3 z-20">
+                  <div className="mb-3">
+                    <p className="text-sm text-muted-foreground mb-2">Language</p>
+                    <LanguageSelector />
+                  </div>
+                  <div className="pt-2 border-t border-border">
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      iconName="LogOut"
+                      fullWidth
+                      onClick={() => {
+                        try { localStorage.removeItem('isAuthenticated'); } catch (e) {}
+                        navigate('/login');
+                      }}
+                    >
+                      Logout
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </header>
