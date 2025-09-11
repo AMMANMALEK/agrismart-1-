@@ -1,0 +1,33 @@
+{
+  "app": {
+    "name": "AgriSmart",
+    "tagline": "Smart farming solutions for modern agriculture"
+  },
+  "login": {
+    "title": "Welcome Back",
+    "subtitle": "Sign in to your AgriSmart account to access your personalized farming dashboard",
+    "email": "Email Address",
+    "password": "Password",
+    "remember": "Remember me",
+    "forgot": "Forgot password?",
+    "signin": "Sign In",
+    "signingIn": "Signing In...",
+    "continueGoogle": "Continue with Google",
+    "failed": "Login Failed",
+    "invalid": "Invalid credentials. Use email: {{email}} and password: {{password}}"
+  },
+  "register": {
+    "title": "Create Your Account",
+    "subtitle": "Join thousands of farmers using smart technology to improve their yields",
+    "create": "Create Account",
+    "creating": "Creating Account..."
+  },
+  "common": {
+    "secure": "Secure",
+    "trusted": "Trusted by 10k+ farmers",
+    "award": "Award winning",
+    "or": "or"
+  }
+}
+
+

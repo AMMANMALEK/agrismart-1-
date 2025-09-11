@@ -5,9 +5,11 @@ import Button from '../../../components/ui/Button';
 import Icon from '../../../components/AppIcon';
 import { signInWithPopup } from 'firebase/auth';
 import { auth, googleProvider } from '../../../lib/firebase';
+import { useTranslation } from 'react-i18next';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -110,7 +112,7 @@ const LoginForm = () => {
           <div className="flex items-start space-x-3">
             <Icon name="AlertCircle" size={20} color="var(--color-error)" />
             <div>
-              <p className="text-sm text-error font-medium">Login Failed</p>
+              <p className="text-sm text-error font-medium">{t('login.failed')}</p>
               <p className="text-sm text-error/80 mt-1">{errors?.general}</p>
             </div>
           </div>
@@ -118,7 +120,7 @@ const LoginForm = () => {
       )}
       <div className="space-y-4">
         <Input
-          label="Email Address"
+          label={t('login.email')}
           type="email"
           name="email"
           placeholder="Enter your email"
@@ -130,7 +132,7 @@ const LoginForm = () => {
         />
 
         <div className="space-y-2">
-          <label className="text-sm font-medium leading-none text-foreground">Password</label>
+          <label className="text-sm font-medium leading-none text-foreground">{t('login.password')}</label>
           <div className="relative">
             <Input
               type={showPassword ? 'text' : 'password'}
@@ -162,10 +164,10 @@ const LoginForm = () => {
             onChange={(e) => setRememberMe(e.target.checked)}
             className="h-4 w-4 rounded border-border text-primary focus:ring-2 focus:ring-ring"
           />
-          <span>Remember me</span>
+          <span>{t('login.remember')}</span>
         </label>
         <button type="button" className="text-sm text-primary hover:underline">
-          Forgot password?
+          {t('login.forgot')}
         </button>
       </div>
       <Button
@@ -177,11 +179,11 @@ const LoginForm = () => {
         iconName="LogIn"
         iconPosition="right"
       >
-        {isLoading ? 'Signing In...' : 'Sign In'}
+        {isLoading ? t('login.signingIn') : t('login.signin')}
       </Button>
 
       <div className="relative py-2 text-center text-xs opacity-70">
-        <span className="px-2 bg-transparent">or</span>
+        <span className="px-2 bg-transparent">{t('common.or')}</span>
       </div>
 
       <Button
@@ -193,7 +195,7 @@ const LoginForm = () => {
         iconName="Chrome"
         iconPosition="left"
       >
-        Continue with Google
+        {t('login.continueGoogle')}
       </Button>
     </form>
   );

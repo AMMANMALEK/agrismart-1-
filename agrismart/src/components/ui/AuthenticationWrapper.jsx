@@ -1,7 +1,9 @@
 import React from 'react';
 import Icon from '../AppIcon';
+import { useTranslation } from 'react-i18next';
 
 const AuthenticationWrapper = ({ children, title, subtitle, theme = 'default' }) => {
+  const { t } = useTranslation();
   return (
     <div className={
       theme === 'neon'
@@ -36,8 +38,8 @@ const AuthenticationWrapper = ({ children, title, subtitle, theme = 'default' })
               : theme === 'earth'
               ? "text-2xl font-bold mb-2"
               : "text-2xl font-bold text-foreground mb-2"
-          } style={theme === 'earth' ? { color: '#228B22' } : undefined}>AgriSmart</h1>
-          <p className={theme === 'neon' ? "text-sm opacity-80" : theme === 'earth' ? "text-sm opacity-90" : "text-muted-foreground text-sm"}>Smart farming solutions for modern agriculture</p>
+          } style={theme === 'earth' ? { color: '#228B22' } : undefined}>{t('app.name')}</h1>
+          <p className={theme === 'neon' ? "text-sm opacity-80" : theme === 'earth' ? "text-sm opacity-90" : "text-muted-foreground text-sm"}>{t('app.tagline')}</p>
         </div>
 
         {/* Authentication Card */}
