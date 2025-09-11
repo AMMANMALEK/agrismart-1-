@@ -3,7 +3,15 @@ import Icon from '../AppIcon';
 
 const AuthenticationWrapper = ({ children, title, subtitle }) => {
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center p-4">
+    <div className="min-h-screen relative flex items-center justify-center p-4 overflow-hidden">
+      {/* Background gradient and decorative shapes */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-emerald-100/60 via-white to-emerald-50 dark:from-emerald-950/40 dark:via-background dark:to-emerald-900/20" />
+        <div className="pointer-events-none">
+          <div className="absolute -top-24 -left-24 h-72 w-72 rounded-full bg-emerald-200/40 blur-3xl dark:bg-emerald-800/30" />
+          <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-lime-200/40 blur-3xl dark:bg-lime-800/20" />
+        </div>
+      </div>
       <div className="w-full max-w-md">
         {/* Logo and Branding */}
         <div className="text-center mb-8">
@@ -17,7 +25,7 @@ const AuthenticationWrapper = ({ children, title, subtitle }) => {
         </div>
 
         {/* Authentication Card */}
-        <div className="bg-card rounded-lg shadow-agricultural-lg border border-border p-6">
+        <div className="bg-card/80 backdrop-blur-sm rounded-2xl shadow-agricultural-lg border border-border p-6">
           <div className="mb-6">
             <h2 className="text-xl font-semibold text-card-foreground mb-2">{title}</h2>
             {subtitle && (

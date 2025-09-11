@@ -12,6 +12,8 @@ const LoginForm = () => {
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(true);
 
   // Mock credentials for demonstration
   const mockCredentials = {
@@ -69,6 +71,11 @@ const LoginForm = () => {
         // Successful login
         localStorage.setItem('isAuthenticated', 'true');
         localStorage.setItem('userEmail', formData?.email);
+        if (rememberMe) {
+          localStorage.setItem('rememberMe', 'true');
+        } else {
+          localStorage.removeItem('rememberMe');
+        }
         navigate('/dashboard');
       } else {
         // Failed login
@@ -106,17 +113,44 @@ const LoginForm = () => {
           className="w-full"
         />
 
-        <Input
-          label="Password"
-          type="password"
-          name="password"
-          placeholder="Enter your password"
-          value={formData?.password}
-          onChange={handleInputChange}
-          error={errors?.password}
-          required
-          className="w-full"
-        />
+        <div className="space-y-2">
+          <label className="text-sm font-medium leading-none text-foreground">Password</label>
+          <div className="relative">
+            <Input
+              type={showPassword ? 'text' : 'password'}
+              name="password"
+              placeholder="Enter your password"
+              value={formData?.password}
+              onChange={handleInputChange}
+              error={errors?.password}
+              required
+              className="pr-10"
+            />
+            <button
+              type="button"
+              aria-label={showPassword ? 'Hide password' : 'Show password'}
+              onClick={() => setShowPassword(prev => !prev)}
+              className="absolute inset-y-0 right-0 px-3 flex items-center text-muted-foreground hover:text-foreground"
+            >
+              <Icon name={showPassword ? 'EyeOff' : 'Eye'} size={18} />
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center justify-between">
+        <label className="flex items-center space-x-2 text-sm text-muted-foreground cursor-pointer select-none">
+          <input
+            type="checkbox"
+            checked={rememberMe}
+            onChange={(e) => setRememberMe(e.target.checked)}
+            className="h-4 w-4 rounded border-border text-primary focus:ring-2 focus:ring-ring"
+          />
+          <span>Remember me</span>
+        </label>
+        <button type="button" className="text-sm text-primary hover:underline">
+          Forgot password?
+        </button>
       </div>
       <Button
         type="submit"
