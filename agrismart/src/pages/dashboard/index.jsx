@@ -14,7 +14,6 @@ import AlertsCard from './components/AlertsCard';
 import SoilHealthCard from './components/SoilHealthCard';
 import ScheduleCard from './components/ScheduleCard';
 import MarketPriceCard from './components/MarketPriceCard';
-import VoiceAssistantCard from './components/VoiceAssistantCard';
 import QuickStatsCard from './components/QuickStatsCard';
 
 const Dashboard = () => {
@@ -176,9 +175,6 @@ const Dashboard = () => {
             {/* Row 2 */}
             <div className="lg:col-span-2 xl:col-span-2">
               <AlertsCard />
-            </div>
-            <div className="xl:col-span-1">
-              <VoiceAssistantCard />
             </div>
 
             {/* Row 3 */}

@@ -66,9 +66,6 @@ const AlertsCard = () => {
             <p className="text-sm text-muted-foreground">Pest & disease warnings</p>
           </div>
         </div>
-        <Button variant="outline" size="sm" iconName="Settings" iconPosition="left">
-          Settings
-        </Button>
       </div>
       <div className="space-y-4">
         {alerts?.map((alert) => (
@@ -97,19 +94,11 @@ const AlertsCard = () => {
                   <p className="text-sm font-medium" style={{ color: getSeverityColor(alert?.severity) }}>
                     Action: {alert?.action}
                   </p>
-                  <Button variant="ghost" size="sm" iconName="ChevronRight">
-                    Details
-                  </Button>
                 </div>
               </div>
             </div>
           </div>
         ))}
-      </div>
-      <div className="mt-4 pt-4 border-t border-border">
-        <Button variant="outline" fullWidth iconName="Bell" iconPosition="left">
-          View All Alerts (12)
-        </Button>
       </div>
     </div>
   );
