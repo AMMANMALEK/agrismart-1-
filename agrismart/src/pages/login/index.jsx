@@ -4,8 +4,6 @@ import AuthenticationWrapper from '../../components/ui/AuthenticationWrapper';
 import { useTranslation } from 'react-i18next';
 import LoginForm from './components/LoginForm';
 import LanguageSelector from './components/LanguageSelector';
-import TrustIndicators from './components/TrustIndicators';
-import VoiceAssistant from './components/VoiceAssistant';
 import AuthenticationLinks from './components/AuthenticationLinks';
 
 const LoginPage = () => {
@@ -36,20 +34,12 @@ const LoginPage = () => {
             <LanguageSelector />
           </div>
 
-          {/* Voice Assistant */}
-          <div className="pt-4 border-t border-border">
-            <VoiceAssistant />
-          </div>
 
           {/* Authentication Links */}
           <div className="pt-4 border-t border-border">
             <AuthenticationLinks />
           </div>
 
-          {/* Trust Indicators */}
-          <div className="pt-4 border-t border-border">
-            <TrustIndicators />
-          </div>
         </div>
       </AuthenticationWrapper>
     </div>

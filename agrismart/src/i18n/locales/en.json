@@ -1,11 +1,11 @@
 {
   "app": {
-    "name": "AgriSmart",
+    "name": "AgriVision",
     "tagline": "Smart farming solutions for modern agriculture"
   },
   "login": {
     "title": "Welcome Back",
-    "subtitle": "Sign in to your AgriSmart account to access your personalized farming dashboard",
+    "subtitle": "Sign in to your AgriVision account to access your personalized farming dashboard",
     "email": "Email Address",
     "password": "Password",
     "remember": "Remember me",

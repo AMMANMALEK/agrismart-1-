@@ -100,9 +100,6 @@ const Dashboard = () => {
               </p>
             </div>
             <div className="relative flex items-center space-x-3">
-              <Button variant="outline" size="sm" iconName="Bell" iconPosition="left">
-                <span className="hidden sm:inline">{t('dashboard.notifications')}</span>
-              </Button>
               <Button
                 variant="outline"
                 size="sm"

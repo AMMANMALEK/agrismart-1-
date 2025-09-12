@@ -3,14 +3,11 @@ import { Helmet } from 'react-helmet';
 import AuthenticationWrapper from '../../components/ui/AuthenticationWrapper';
 import { useTranslation } from 'react-i18next';
 import RegistrationForm from './components/RegistrationForm';
-import TrustIndicators from './components/TrustIndicators';
-import VoiceAssistant from './components/VoiceAssistant';
 import ProgressIndicator from './components/ProgressIndicator';
 import Icon from '../../components/AppIcon';
 
 const Register = () => {
   const [currentLanguage, setCurrentLanguage] = useState('en');
-  const [showVoiceAssistant, setShowVoiceAssistant] = useState(false);
 
   useEffect(() => {
     // Check for saved language preference
@@ -20,14 +17,6 @@ const Register = () => {
     }
   }, []);
 
-  const handleVoiceInput = (voiceText) => {
-    console.log('Voice input received:', voiceText);
-    // Handle voice input processing here
-  };
-
-  const toggleVoiceAssistant = () => {
-    setShowVoiceAssistant(!showVoiceAssistant);
-  };
 
   const { t } = useTranslation();
   return (
@@ -54,41 +43,10 @@ const Register = () => {
             {/* Progress Indicator */}
             <ProgressIndicator currentStep={1} totalSteps={4} />
 
-            {/* Voice Assistant Toggle */}
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <Icon name="Mic" size={16} color="var(--color-primary)" />
-                <span className="text-sm font-medium text-card-foreground">
-                  Voice Assistant
-                </span>
-              </div>
-              <button
-                onClick={toggleVoiceAssistant}
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-                  showVoiceAssistant ? 'bg-primary' : 'bg-muted'
-                }`}
-                aria-label="Toggle voice assistant"
-              >
-                <span
-                  className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-                    showVoiceAssistant ? 'translate-x-6' : 'translate-x-1'
-                  }`}
-                />
-              </button>
-            </div>
-
-            {/* Voice Assistant Component */}
-            {showVoiceAssistant && (
-              <VoiceAssistant onVoiceInput={handleVoiceInput} />
-            )}
 
             {/* Registration Form */}
             <RegistrationForm />
 
-            {/* Trust Indicators */}
-            <div className="mt-8">
-              <TrustIndicators />
-            </div>
 
             {/* Additional Information */}
             <div className="bg-primary/5 border border-primary/20 rounded-lg p-4 mt-6">
@@ -98,7 +56,7 @@ const Register = () => {
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold text-primary mb-1">
-                    Why Register with AgriSmart?
+                    Why Register with AgriVision?
                   </h4>
                   <ul className="text-xs text-muted-foreground space-y-1">
                     <li>• Get personalized crop recommendations based on your location</li>

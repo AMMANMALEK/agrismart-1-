@@ -35,14 +35,7 @@ const RegistrationForm = () => {
   const languageOptions = [
     { value: 'en', label: 'English' },
     { value: 'hi', label: 'हिंदी (Hindi)' },
-    { value: 'te', label: 'తెలుగు (Telugu)' },
-    { value: 'ta', label: 'தமிழ் (Tamil)' },
-    { value: 'kn', label: 'ಕನ್ನಡ (Kannada)' },
-    { value: 'ml', label: 'മലയാളം (Malayalam)' },
-    { value: 'gu', label: 'ગુજરાતી (Gujarati)' },
-    { value: 'mr', label: 'मराठी (Marathi)' },
-    { value: 'bn', label: 'বাংলা (Bengali)' },
-    { value: 'pa', label: 'ਪੰਜਾਬੀ (Punjabi)' }
+    { value: 'gu', label: 'ગુજરાતી (Gujarati)' }
   ];
 
   const farmSizeOptions = [
@@ -60,16 +53,14 @@ const RegistrationForm = () => {
   ];
 
   const cropTypeOptions = [
+    { value: 'maize', label: 'Maize' },
+    { value: 'potatoes', label: 'Potatoes' },
     { value: 'rice', label: 'Rice' },
+    { value: 'sweet_potatoes', label: 'Sweet Potatoes' },
     { value: 'wheat', label: 'Wheat' },
-    { value: 'corn', label: 'Corn/Maize' },
-    { value: 'cotton', label: 'Cotton' },
-    { value: 'sugarcane', label: 'Sugarcane' },
-    { value: 'vegetables', label: 'Vegetables' },
-    { value: 'fruits', label: 'Fruits' },
-    { value: 'pulses', label: 'Pulses/Legumes' },
-    { value: 'spices', label: 'Spices' },
-    { value: 'oilseeds', label: 'Oilseeds' }
+    { value: 'cassava', label: 'Cassava' },
+    { value: 'soybean', label: 'Soybean' },
+    { value: 'yams', label: 'Yams' }
   ];
 
   const calculatePasswordStrength = (password) => {
