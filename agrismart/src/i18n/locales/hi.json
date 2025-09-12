@@ -81,6 +81,48 @@
     "tabHistory": "इतिहास",
     "tabWeather": "मौसम जोखिम",
     "tabCommunity": "समुदाय"
+  },
+  "reports": {
+    "title": "रिपोर्ट्स और एनालिटिक्स",
+    "subtitle": "आपके खेत के लिए व्यापक अंतर्दृष्टि और डेटा-आधारित विश्लेषण",
+    "metaDescription": "डेटा-आधारित निर्णयों के लिए व्यापक कृषि रिपोर्ट और एनालिटिक्स",
+    "refresh": "डेटा रिफ्रेश",
+    "new": "नई रिपोर्ट",
+    "download": "डाउनलोड",
+    "tabs": {
+      "overview": "ओवरव्यू",
+      "weekly": "साप्ताहिक रिपोर्ट",
+      "seasonal": "सीज़न विश्लेषण",
+      "performance": "प्रदर्शन",
+      "predictions": "अनुमान",
+      "financial": "वित्तीय",
+      "benchmarks": "बेंचमार्क",
+      "export": "एक्सपोर्ट"
+    },
+    "overview": {
+      "totalReports": "कुल रिपोर्ट तैयार",
+      "dataPoints": "विश्लेषित डेटा पॉइंट्स",
+      "insights": "उत्पन्न इनसाइट्स",
+      "accuracy": "सटीकता दर"
+    },
+    "quick": {
+      "title": "त्वरित क्रियाएँ",
+      "generateWeekly": "साप्ताहिक रिपोर्ट बनाएं",
+      "compareSeasons": "सीज़न की तुलना करें",
+      "viewPredictions": "अनुमान देखें",
+      "exportAll": "सभी रिपोर्ट एक्सपोर्ट करें"
+    },
+    "recent": {
+      "title": "हाल की रिपोर्ट",
+      "viewAll": "सभी देखें",
+      "status": { "completed": "पूर्ण" },
+      "type": {
+        "health": "स्वास्थ्य",
+        "analytics": "एनालिटिक्स",
+        "financial": "वित्तीय",
+        "predictions": "अनुमान"
+      }
+    }
   }
 }
 

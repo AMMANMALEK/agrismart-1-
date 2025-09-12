@@ -81,6 +81,48 @@
     "tabHistory": "History",
     "tabWeather": "Weather Risk",
     "tabCommunity": "Community"
+  },
+  "reports": {
+    "title": "Reports & Analytics",
+    "subtitle": "Comprehensive insights and data-driven analysis for your farm",
+    "metaDescription": "Comprehensive agricultural reports and analytics for data-driven farming decisions",
+    "refresh": "Refresh Data",
+    "new": "New Report",
+    "download": "Download",
+    "tabs": {
+      "overview": "Overview",
+      "weekly": "Weekly Reports",
+      "seasonal": "Season Analysis",
+      "performance": "Performance",
+      "predictions": "Predictions",
+      "financial": "Financial",
+      "benchmarks": "Benchmarks",
+      "export": "Export"
+    },
+    "overview": {
+      "totalReports": "Total Reports Generated",
+      "dataPoints": "Data Points Analyzed",
+      "insights": "Insights Generated",
+      "accuracy": "Accuracy Rate"
+    },
+    "quick": {
+      "title": "Quick Actions",
+      "generateWeekly": "Generate Weekly Report",
+      "compareSeasons": "Compare Seasons",
+      "viewPredictions": "View Predictions",
+      "exportAll": "Export All Reports"
+    },
+    "recent": {
+      "title": "Recent Reports",
+      "viewAll": "View All",
+      "status": { "completed": "completed" },
+      "type": {
+        "health": "Health",
+        "analytics": "Analytics",
+        "financial": "Financial",
+        "predictions": "Predictions"
+      }
+    }
   }
 }
 

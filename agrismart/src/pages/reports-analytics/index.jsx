@@ -11,25 +11,27 @@ import PredictiveAnalytics from './components/PredictiveAnalytics';
 import CostBenefitAnalysis from './components/CostBenefitAnalysis';
 import BenchmarkComparison from './components/BenchmarkComparison';
 import ExportReports from './components/ExportReports';
+import { useTranslation } from 'react-i18next';
 
 const ReportsAnalytics = () => {
+  const { t } = useTranslation();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
 
   const tabs = [
-    { id: 'overview', label: 'Overview', icon: 'LayoutDashboard' },
-    { id: 'weekly', label: 'Weekly Reports', icon: 'Activity' },
-    { id: 'seasonal', label: 'Season Analysis', icon: 'TrendingUp' },
-    { id: 'performance', label: 'Performance', icon: 'BarChart3' },
-    { id: 'predictions', label: 'Predictions', icon: 'Brain' },
-    { id: 'financial', label: 'Financial', icon: 'Calculator' },
-    { id: 'benchmarks', label: 'Benchmarks', icon: 'Award' },
-    { id: 'export', label: 'Export', icon: 'Download' }
+    { id: 'overview', label: t('reports.tabs.overview'), icon: 'LayoutDashboard' },
+    { id: 'weekly', label: t('reports.tabs.weekly'), icon: 'Activity' },
+    { id: 'seasonal', label: t('reports.tabs.seasonal'), icon: 'TrendingUp' },
+    { id: 'performance', label: t('reports.tabs.performance'), icon: 'BarChart3' },
+    { id: 'predictions', label: t('reports.tabs.predictions'), icon: 'Brain' },
+    { id: 'financial', label: t('reports.tabs.financial'), icon: 'Calculator' },
+    { id: 'benchmarks', label: t('reports.tabs.benchmarks'), icon: 'Award' },
+    { id: 'export', label: t('reports.tabs.export'), icon: 'Download' }
   ];
 
   const overviewStats = [
     {
-      title: 'Total Reports Generated',
+      title: t('reports.overview.totalReports'),
       value: '247',
       change: '+12%',
       trend: 'up',
@@ -37,7 +39,7 @@ const ReportsAnalytics = () => {
       color: 'primary'
     },
     {
-      title: 'Data Points Analyzed',
+      title: t('reports.overview.dataPoints'),
       value: '15.2K',
       change: '+8%',
       trend: 'up',
@@ -45,7 +47,7 @@ const ReportsAnalytics = () => {
       color: 'success'
     },
     {
-      title: 'Insights Generated',
+      title: t('reports.overview.insights'),
       value: '89',
       change: '+15%',
       trend: 'up',
@@ -53,7 +55,7 @@ const ReportsAnalytics = () => {
       color: 'warning'
     },
     {
-      title: 'Accuracy Rate',
+      title: t('reports.overview.accuracy'),
       value: '94.5%',
       change: '+2%',
       trend: 'up',
@@ -63,10 +65,10 @@ const ReportsAnalytics = () => {
   ];
 
   const quickActions = [
-    { label: 'Generate Weekly Report', icon: 'Plus', action: () => setActiveTab('weekly') },
-    { label: 'Compare Seasons', icon: 'GitCompare', action: () => setActiveTab('seasonal') },
-    { label: 'View Predictions', icon: 'TrendingUp', action: () => setActiveTab('predictions') },
-    { label: 'Export All Reports', icon: 'Download', action: () => setActiveTab('export') }
+    { label: t('reports.quick.generateWeekly'), icon: 'Plus', action: () => setActiveTab('weekly') },
+    { label: t('reports.quick.compareSeasons'), icon: 'GitCompare', action: () => setActiveTab('seasonal') },
+    { label: t('reports.quick.viewPredictions'), icon: 'TrendingUp', action: () => setActiveTab('predictions') },
+    { label: t('reports.quick.exportAll'), icon: 'Download', action: () => setActiveTab('export') }
   ];
 
   const getColorByType = (type) => {
@@ -126,7 +128,7 @@ const ReportsAnalytics = () => {
             </div>
             {/* Quick Actions */}
             <div className="bg-card rounded-lg border border-border p-6">
-              <h3 className="text-lg font-semibold text-card-foreground mb-4">Quick Actions</h3>
+              <h3 className="text-lg font-semibold text-card-foreground mb-4">{t('reports.quick.title')}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 {quickActions?.map((action, index) => (
                   <Button
@@ -145,17 +147,17 @@ const ReportsAnalytics = () => {
             {/* Recent Activity */}
             <div className="bg-card rounded-lg border border-border p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold text-card-foreground">Recent Reports</h3>
+                <h3 className="text-lg font-semibold text-card-foreground">{t('reports.recent.title')}</h3>
                 <Button variant="ghost" size="sm" iconName="MoreHorizontal">
-                  View All
+                  {t('reports.recent.viewAll')}
                 </Button>
               </div>
               <div className="space-y-3">
                 {[
-                  { name: 'Weekly Farm Health Report', date: 'September 8, 2024', type: 'Health', status: 'completed' },
-                  { name: 'Season Comparison Analysis', date: 'September 5, 2024', type: 'Analytics', status: 'completed' },
-                  { name: 'Cost-Benefit Analysis Q3', date: 'September 1, 2024', type: 'Financial', status: 'completed' },
-                  { name: 'Predictive Yield Forecast', date: 'August 28, 2024', type: 'Predictions', status: 'completed' }
+                  { name: 'Weekly Farm Health Report', date: 'September 8, 2024', type: t('reports.recent.type.health'), status: 'completed' },
+                  { name: 'Season Comparison Analysis', date: 'September 5, 2024', type: t('reports.recent.type.analytics'), status: 'completed' },
+                  { name: 'Cost-Benefit Analysis Q3', date: 'September 1, 2024', type: t('reports.recent.type.financial'), status: 'completed' },
+                  { name: 'Predictive Yield Forecast', date: 'August 28, 2024', type: t('reports.recent.type.predictions'), status: 'completed' }
                 ]?.map((report, index) => (
                   <div key={index} className="flex items-center justify-between p-3 bg-background rounded-lg border border-border">
                     <div className="flex items-center space-x-3">
@@ -169,10 +171,10 @@ const ReportsAnalytics = () => {
                     </div>
                     <div className="flex items-center space-x-2">
                       <span className="px-2 py-1 bg-success/10 text-success text-xs rounded-full">
-                        {report?.status}
+                        {t('reports.recent.status.completed')}
                       </span>
                       <Button variant="ghost" size="sm" iconName="Download">
-                        Download
+                        {t('reports.download')}
                       </Button>
                     </div>
                   </div>
@@ -187,8 +189,8 @@ const ReportsAnalytics = () => {
   return (
     <>
       <Helmet>
-        <title>Reports & Analytics - AgriSmart</title>
-        <meta name="description" content="Comprehensive agricultural reports and analytics for data-driven farming decisions" />
+        <title>{t('reports.title')} - AgriSmart</title>
+        <meta name="description" content={t('reports.metaDescription')} />
       </Helmet>
       <div className="min-h-screen bg-background">
         <MainSidebar 
@@ -203,17 +205,17 @@ const ReportsAnalytics = () => {
           <div className="bg-card border-b border-border px-4 py-4 lg:px-6">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-2xl font-bold text-card-foreground">Reports & Analytics</h1>
+                <h1 className="text-2xl font-bold text-card-foreground">{t('reports.title')}</h1>
                 <p className="text-muted-foreground mt-1">
-                  Comprehensive insights and data-driven analysis for your farm
+                  {t('reports.subtitle')}
                 </p>
               </div>
               <div className="flex items-center space-x-3">
                 <Button variant="outline" iconName="RefreshCw" iconPosition="left" size="sm">
-                  Refresh Data
+                  {t('reports.refresh')}
                 </Button>
                 <Button variant="default" iconName="Plus" iconPosition="left" size="sm">
-                  New Report
+                  {t('reports.new')}
                 </Button>
               </div>
             </div>

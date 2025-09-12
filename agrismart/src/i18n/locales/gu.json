@@ -81,6 +81,48 @@
     "tabHistory": "ઇતિહાસ",
     "tabWeather": "વેધર જોખમ",
     "tabCommunity": "કમ્યુનિટી"
+  },
+  "reports": {
+    "title": "રિપોર્ટ્સ અને એનાલિટિક્સ",
+    "subtitle": "તમારા ફાર્મ માટે વ્યાપક ઝાંખી અને ડેટા આધારિત વિશ્લેષણ",
+    "metaDescription": "ડેટા આધારિત નિર્ણય માટે વ્યાપક કૃષિ રિપોર્ટ્સ અને એનાલિટિક્સ",
+    "refresh": "ડેટા રિફ્રેશ",
+    "new": "નવી રિપોર્ટ",
+    "download": "ડાઉનલોડ",
+    "tabs": {
+      "overview": "ઓવરવ્યૂ",
+      "weekly": "સાપ્તાહિક રિપોર્ટ્સ",
+      "seasonal": "સીઝન વિશ્લેષણ",
+      "performance": "પરફોર્મન્સ",
+      "predictions": "અનુમાન",
+      "financial": "વિત્તીય",
+      "benchmarks": "બેન્ચમાર્ક્સ",
+      "export": "એકસ્પોર્ટ"
+    },
+    "overview": {
+      "totalReports": "કુલ રિપોર્ટ્સ બનાવ્યા",
+      "dataPoints": "વિશ્લેષિત ડેટા પોઇન્ટ્સ",
+      "insights": "તૈયાર થયેલા ઇનસાઇટ્સ",
+      "accuracy": "સચોટતા દર"
+    },
+    "quick": {
+      "title": "ઝડપી ક્રિયાઓ",
+      "generateWeekly": "સાપ્તાહિક રિપોર્ટ બનાવો",
+      "compareSeasons": "સીઝન્સની સરખામણી કરો",
+      "viewPredictions": "અનુમાન જુઓ",
+      "exportAll": "બધા રિપોર્ટ્સ એકસ્પોર્ટ કરો"
+    },
+    "recent": {
+      "title": "હાલના રિપોર્ટ્સ",
+      "viewAll": "બધું જુઓ",
+      "status": { "completed": "પૂર્ણ" },
+      "type": {
+        "health": "હેલ્થ",
+        "analytics": "એનલિટિક્સ",
+        "financial": "વિત્તીય",
+        "predictions": "અનુમાન"
+      }
+    }
   }
 }
 
