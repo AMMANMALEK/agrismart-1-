@@ -17,6 +17,8 @@ const ReportsAnalytics = () => {
   const { t } = useTranslation();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
+  const [showDownloadModal, setShowDownloadModal] = useState(false);
+  const [selectedFormat, setSelectedFormat] = useState('csv');
 
   const tabs = [
     { id: 'overview', label: t('reports.tabs.overview'), icon: 'LayoutDashboard' },
@@ -79,6 +81,125 @@ const ReportsAnalytics = () => {
       accent: 'var(--color-accent)'
     };
     return colors?.[type] || 'var(--color-muted-foreground)';
+  };
+
+  const downloadFormats = [
+    { id: 'csv', label: 'CSV', description: 'Comma-separated values', icon: 'FileText' },
+    { id: 'excel', label: 'Excel', description: 'Microsoft Excel format', icon: 'FileSpreadsheet' },
+    { id: 'pdf', label: 'PDF', description: 'Portable Document Format', icon: 'FileImage' },
+    { id: 'json', label: 'JSON', description: 'JavaScript Object Notation', icon: 'Code' }
+  ];
+
+  const handleDownload = (format) => {
+    // Sample data for demonstration
+    const sampleData = [
+      { date: '2024-09-01', crop: 'Wheat', yield: '4.2 tons', health: '95%', cost: '$1200' },
+      { date: '2024-09-02', crop: 'Rice', yield: '3.8 tons', health: '92%', cost: '$980' },
+      { date: '2024-09-03', crop: 'Corn', yield: '5.1 tons', health: '88%', cost: '$1450' },
+      { date: '2024-09-04', crop: 'Soybeans', yield: '2.9 tons', health: '94%', cost: '$850' },
+      { date: '2024-09-05', crop: 'Barley', yield: '3.5 tons', health: '91%', cost: '$1100' }
+    ];
+
+    const filename = `farm-report-${new Date().toISOString().split('T')[0]}`;
+
+    switch (format) {
+      case 'csv':
+        downloadCSV(sampleData, filename);
+        break;
+      case 'excel':
+        downloadExcel(sampleData, filename);
+        break;
+      case 'pdf':
+        downloadPDF(sampleData, filename);
+        break;
+      case 'json':
+        downloadJSON(sampleData, filename);
+        break;
+      default:
+        break;
+    }
+    setShowDownloadModal(false);
+  };
+
+  const downloadCSV = (data, filename) => {
+    const headers = Object.keys(data[0]);
+    const csvContent = [
+      headers.join(','),
+      ...data.map(row => headers.map(header => `"${row[header]}"`).join(','))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${filename}.csv`;
+    link.click();
+  };
+
+  const downloadJSON = (data, filename) => {
+    const jsonContent = JSON.stringify(data, null, 2);
+    const blob = new Blob([jsonContent], { type: 'application/json;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${filename}.json`;
+    link.click();
+  };
+
+  const downloadExcel = (data, filename) => {
+    // For Excel, we'll create a CSV with .xlsx extension for simplicity
+    // In a real app, you'd use a library like xlsx or exceljs
+    const headers = Object.keys(data[0]);
+    const csvContent = [
+      headers.join('\t'),
+      ...data.map(row => headers.map(header => row[header]).join('\t'))
+    ].join('\n');
+
+    const blob = new Blob([csvContent], { type: 'application/vnd.ms-excel;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${filename}.xlsx`;
+    link.click();
+  };
+
+  const downloadPDF = (data, filename) => {
+    // For PDF, we'll create a simple HTML content and convert it
+    // In a real app, you'd use a library like jsPDF or html2pdf
+    const htmlContent = `
+      <html>
+        <head>
+          <title>Farm Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; }
+            h1 { color: #333; }
+          </style>
+        </head>
+        <body>
+          <h1>Farm Report - ${new Date().toLocaleDateString()}</h1>
+          <table>
+            <thead>
+              <tr>
+                ${Object.keys(data[0]).map(key => `<th>${key.charAt(0).toUpperCase() + key.slice(1)}</th>`).join('')}
+              </tr>
+            </thead>
+            <tbody>
+              ${data.map(row => `
+                <tr>
+                  ${Object.values(row).map(value => `<td>${value}</td>`).join('')}
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </body>
+      </html>
+    `;
+
+    const blob = new Blob([htmlContent], { type: 'text/html;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${filename}.html`;
+    link.click();
   };
 
   const renderTabContent = () => {
@@ -210,6 +331,17 @@ const ReportsAnalytics = () => {
                   {t('reports.subtitle')}
                 </p>
               </div>
+              <div className="flex items-center space-x-3">
+                <Button
+                  variant="default"
+                  iconName="Download"
+                  iconPosition="left"
+                  size="sm"
+                  onClick={() => setShowDownloadModal(true)}
+                >
+                  Export Data
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -243,6 +375,78 @@ const ReportsAnalytics = () => {
         </div>
 
         <MobileNavigationBar />
+
+        {/* Download Modal */}
+        {showDownloadModal && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+            <div className="bg-card rounded-lg border border-border w-full max-w-md">
+              <div className="p-6">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-card-foreground">Export Data</h3>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    iconName="X"
+                    onClick={() => setShowDownloadModal(false)}
+                  />
+                </div>
+                
+                <p className="text-muted-foreground mb-6">
+                  Choose your preferred format to download the farm data and reports.
+                </p>
+
+                <div className="space-y-3 mb-6">
+                  {downloadFormats.map((format) => (
+                    <div
+                      key={format.id}
+                      className={`p-3 rounded-lg border cursor-pointer transition-agricultural ${
+                        selectedFormat === format.id
+                          ? 'border-primary bg-primary/5'
+                          : 'border-border hover:border-primary/50'
+                      }`}
+                      onClick={() => setSelectedFormat(format.id)}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className={`p-2 rounded-lg ${
+                          selectedFormat === format.id ? 'bg-primary/10' : 'bg-muted/50'
+                        }`}>
+                          <Icon 
+                            name={format.icon} 
+                            size={16} 
+                            color={selectedFormat === format.id ? 'var(--color-primary)' : 'var(--color-muted-foreground)'} 
+                          />
+                        </div>
+                        <div>
+                          <p className="font-medium text-card-foreground">{format.label}</p>
+                          <p className="text-sm text-muted-foreground">{format.description}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex items-center space-x-3">
+                  <Button
+                    variant="outline"
+                    fullWidth
+                    onClick={() => setShowDownloadModal(false)}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    variant="default"
+                    fullWidth
+                    iconName="Download"
+                    iconPosition="left"
+                    onClick={() => handleDownload(selectedFormat)}
+                  >
+                    Download {downloadFormats.find(f => f.id === selectedFormat)?.label}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

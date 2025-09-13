@@ -10,7 +10,7 @@ const MainSidebar = ({ isCollapsed = false, onToggle, userData = null }) => {
   const defaultUserData = {
     username: "Guest User",
     email: "guest@farm.com",
-    phone: "+91 00000 00000"
+    phone: "+91 9876543210"
   };
 
   const currentUser = userData || defaultUserData;
