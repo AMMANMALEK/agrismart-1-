@@ -7,7 +7,6 @@ import ImageUploadArea from './components/ImageUploadArea';
 import AnalysisResults from './components/AnalysisResults';
 import TreatmentRecommendations from './components/TreatmentRecommendations';
 import PestGallery from './components/PestGallery';
-import DetectionHistory from './components/DetectionHistory';
 import WeatherRiskForecast from './components/WeatherRiskForecast';
 import CommunityReports from './components/CommunityReports';
 
@@ -95,53 +94,6 @@ const PestDetection = () => {
     }
   ];
 
-  // Mock data for detection history
-  const detectionHistoryData = [
-    {
-      id: 1,
-      pestName: "Aphids",
-      scientificName: "Aphis gossypii",
-      cropType: "Tomato",
-      severity: "medium",
-      confidence: 87,
-      date: "2025-01-08T10:30:00Z",
-      fieldLocation: "Field A-1",
-      treatmentApplied: "Neem oil spray",
-      status: "Resolved",
-      effectivenessRating: 4,
-      image: "https://images.pexels.com/photos/6129507/pexels-photo-6129507.jpeg",
-      notes: "Treatment was effective after 3 applications over 2 weeks."
-    },
-    {
-      id: 2,
-      pestName: "Late Blight",
-      scientificName: "Phytophthora infestans",
-      cropType: "Potato",
-      severity: "high",
-      confidence: 92,
-      date: "2025-01-05T14:15:00Z",
-      fieldLocation: "Field B-2",
-      treatmentApplied: "Copper fungicide",
-      status: "In Progress",
-      effectivenessRating: 3,
-      image: "https://images.pexels.com/photos/4750270/pexels-photo-4750270.jpeg",
-      notes: "Early detection helped prevent major crop loss."
-    },
-    {
-      id: 3,
-      pestName: "Whitefly",
-      scientificName: "Bemisia tabaci",
-      cropType: "Cotton",
-      severity: "low",
-      confidence: 78,
-      date: "2025-01-03T09:45:00Z",
-      fieldLocation: "Field C-3",
-      treatmentApplied: null,
-      status: "Monitoring",
-      image: "https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg",
-      notes: "Population below economic threshold, continuing monitoring."
-    }
-  ];
 
   // Mock data for weather forecast
   const weatherForecastData = {
@@ -403,7 +355,6 @@ const PestDetection = () => {
   const tabs = [
     { id: 'upload', label: 'Image Analysis', icon: 'Camera' },
     { id: 'gallery', label: 'Pest Gallery', icon: 'BookOpen' },
-    { id: 'history', label: 'History', icon: 'History' },
     { id: 'weather', label: 'Weather Risk', icon: 'CloudRain' },
     { id: 'community', label: 'Community', icon: 'Users' }
   ];
@@ -493,7 +444,6 @@ const PestDetection = () => {
                 <span>{
                   tab?.id === 'upload' ? t('pest.tabImage') :
                   tab?.id === 'gallery' ? t('pest.tabGallery') :
-                  tab?.id === 'history' ? t('pest.tabHistory') :
                   tab?.id === 'weather' ? t('pest.tabWeather') :
                   t('pest.tabCommunity')
                 }</span>
@@ -528,9 +478,6 @@ const PestDetection = () => {
               />
             )}
 
-            {activeTab === 'history' && (
-              <DetectionHistory history={detectionHistoryData} />
-            )}
 
             {activeTab === 'weather' && (
               <WeatherRiskForecast forecast={weatherForecastData} />

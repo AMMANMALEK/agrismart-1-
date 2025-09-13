@@ -16,11 +16,10 @@ const SoilHealthMonitor = () => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [selectedField, setSelectedField] = useState('field_1');
   const [filters, setFilters] = useState({
-    parameter: 'all',
+    crop: 'all',
     field: 'all',
     timeRange: '30d',
-    depthMin: '',
-    depthMax: '',
+    fertilizer: 'all',
     startDate: '',
     endDate: ''
   });
@@ -217,14 +216,6 @@ const SoilHealthMonitor = () => {
                 <div>
                   <h1 className="text-2xl font-bold text-foreground">{t('soil.title')}</h1>
                   <p className="text-muted-foreground">{t('soil.subtitle')}</p>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Button variant="outline" iconName="Download" iconPosition="left">
-                    {t('soil.export')}
-                  </Button>
-                  <Button variant="default" iconName="RefreshCw" iconPosition="left">
-                    {t('soil.refresh')}
-                  </Button>
                 </div>
               </div>
             </div>

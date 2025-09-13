@@ -16,13 +16,22 @@ import ScheduleCard from './components/ScheduleCard';
 import MarketPriceCard from './components/MarketPriceCard';
 import QuickStatsCard from './components/QuickStatsCard';
 
-const Dashboard = () => {
+const Dashboard = ({ userData = null }) => {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [greeting, setGreeting] = useState('');
   const [showSettings, setShowSettings] = useState(false);
+
+  // Default user data if none provided
+  const defaultUserData = {
+    username: "Farm Manager",
+    email: "manager@farm.com",
+    phone: "+91 00000 00000"
+  };
+  
+  const currentUser = userData || defaultUserData;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -77,6 +86,7 @@ const Dashboard = () => {
       <MainSidebar 
         isCollapsed={sidebarCollapsed} 
         onToggle={setSidebarCollapsed} 
+        userData={currentUser}
       />
       <div className={`transition-agricultural ${sidebarCollapsed ? 'lg:ml-16' : 'lg:ml-60'}`}>
         {/* Header */}
@@ -84,7 +94,7 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-bold text-card-foreground">
-                {greeting}, {t('dashboard.farmManager')}! 👋
+                {greeting}, {currentUser.username}! 👋
               </h1>
               <p className="text-muted-foreground mt-1">
                 {currentTime?.toLocaleDateString(locale, { 

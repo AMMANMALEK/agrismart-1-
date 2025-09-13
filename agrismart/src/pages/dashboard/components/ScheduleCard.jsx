@@ -89,9 +89,6 @@ const ScheduleCard = () => {
             <p className="text-sm text-muted-foreground">Irrigation & fertilizer planning</p>
           </div>
         </div>
-        <Button variant="outline" size="sm" iconName="Plus" iconPosition="left">
-          Add Task
-        </Button>
       </div>
       <div className="space-y-3">
         {scheduleItems?.slice(0, 2)?.map((item) => (
@@ -138,13 +135,8 @@ const ScheduleCard = () => {
         ))}
       </div>
       <div className="mt-4 pt-4 border-t border-border">
-        <div className="flex items-center justify-between">
-          <div className="text-sm text-muted-foreground">
-            {scheduleItems?.filter(item => item?.status === 'pending')?.length} pending tasks
-          </div>
-          <Button variant="ghost" size="sm" iconName="Calendar" iconPosition="left">
-            View Calendar
-          </Button>
+        <div className="text-sm text-muted-foreground">
+          {scheduleItems?.filter(item => item?.status === 'pending')?.length} pending tasks
         </div>
       </div>
     </div>

@@ -82,9 +82,6 @@ const MarketPriceCard = () => {
             <p className="text-sm text-muted-foreground">Real-time crop pricing</p>
           </div>
         </div>
-        <Button variant="outline" size="sm" iconName="RefreshCw" iconPosition="left">
-          Refresh
-        </Button>
       </div>
       <div className="space-y-3 mb-6">
         {marketData?.slice(0, 3)?.map((item) => (

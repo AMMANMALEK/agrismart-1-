@@ -210,14 +210,6 @@ const ReportsAnalytics = () => {
                   {t('reports.subtitle')}
                 </p>
               </div>
-              <div className="flex items-center space-x-3">
-                <Button variant="outline" iconName="RefreshCw" iconPosition="left" size="sm">
-                  {t('reports.refresh')}
-                </Button>
-                <Button variant="default" iconName="Plus" iconPosition="left" size="sm">
-                  {t('reports.new')}
-                </Button>
-              </div>
             </div>
           </div>
 

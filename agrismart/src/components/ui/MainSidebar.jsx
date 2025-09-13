@@ -2,9 +2,18 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Icon from '../AppIcon';
 
-const MainSidebar = ({ isCollapsed = false, onToggle }) => {
+const MainSidebar = ({ isCollapsed = false, onToggle, userData = null }) => {
   const location = useLocation();
   const [isExpanded, setIsExpanded] = useState(!isCollapsed);
+
+  // Default user data if none provided - in real app, this would come from authentication context
+  const defaultUserData = {
+    username: "Guest User",
+    email: "guest@farm.com",
+    phone: "+91 00000 00000"
+  };
+
+  const currentUser = userData || defaultUserData;
 
   const navigationItems = [
     {
@@ -120,9 +129,10 @@ const MainSidebar = ({ isCollapsed = false, onToggle }) => {
                 <Icon name="User" size={16} color="white" />
               </div>
               {isExpanded && (
-                <div className="flex flex-col">
-                  <span className="text-sm font-medium text-foreground">Farm Manager</span>
-                  <span className="text-xs text-muted-foreground">Online</span>
+                <div className="flex flex-col min-w-0 flex-1">
+                  <span className="text-sm font-medium text-foreground truncate">{currentUser.username}</span>
+                  <span className="text-xs text-muted-foreground truncate">{currentUser.email}</span>
+                  <span className="text-xs text-muted-foreground truncate">{currentUser.phone}</span>
                 </div>
               )}
             </div>
