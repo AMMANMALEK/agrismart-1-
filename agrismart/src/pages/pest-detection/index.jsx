@@ -30,7 +30,8 @@ const PestDetection = () => {
       image: "/assets/images/aphids-new.jpg",
       affectedCrops: ["Tomato", "Pepper", "Cucumber", "Cotton"],
       symptoms: ["Yellowing leaves", "Sticky honeydew", "Curled leaves"],
-      season: "Spring-Summer"
+      season: "Spring-Summer",
+      wikipediaUrl: "https://en.wikipedia.org/wiki/Aphid"
     },
     {
       id: 2,
@@ -41,7 +42,8 @@ const PestDetection = () => {
       image: "/assets/images/late-blight-new.jpg",
       affectedCrops: ["Tomato", "Potato"],
       symptoms: ["Dark lesions on leaves", "White fungal growth", "Fruit rot"],
-      season: "Monsoon"
+      season: "Monsoon",
+      wikipediaUrl: "https://en.wikipedia.org/wiki/Phytophthora_infestans"
     },
     {
       id: 3,
@@ -52,7 +54,8 @@ const PestDetection = () => {
       image: "/assets/images/whitefly-new.jpg",
       affectedCrops: ["Cotton", "Tomato", "Brinjal"],
       symptoms: ["Yellow sticky traps", "Sooty mold", "Leaf yellowing"],
-      season: "Year-round"
+      season: "Year-round",
+      wikipediaUrl: "https://en.wikipedia.org/wiki/Whitefly"
     },
     {
       id: 4,
@@ -63,7 +66,8 @@ const PestDetection = () => {
       image: "/assets/images/Nitrogen_deficiency.jpeg",
       affectedCrops: ["Rice", "Wheat", "Corn"],
       symptoms: ["Yellowing of older leaves", "Stunted growth", "Poor yield"],
-      season: "Growing season"
+      season: "Growing season",
+      wikipediaUrl: "https://en.wikipedia.org/wiki/Nitrogen_deficiency"
     },
     {
       id: 5,
@@ -74,7 +78,8 @@ const PestDetection = () => {
       image: "/assets/images/thrips-new.jpg",
       affectedCrops: ["Onion", "Garlic", "Tomato"],
       symptoms: ["Silver streaks on leaves", "Black spots", "Leaf curling"],
-      season: "Summer"
+      season: "Summer",
+      wikipediaUrl: "https://en.wikipedia.org/wiki/Thrips"
     },
     {
       id: 6,
@@ -85,7 +90,8 @@ const PestDetection = () => {
       image: "/assets/images/powdery-mildew-new.jpeg",
       affectedCrops: ["Cucumber", "Pumpkin", "Grapes"],
       symptoms: ["White powdery coating", "Leaf distortion", "Reduced photosynthesis"],
-      season: "Cool humid weather"
+      season: "Cool humid weather",
+      wikipediaUrl: "https://en.wikipedia.org/wiki/Powdery_mildew"
     }
   ];
 
@@ -434,8 +440,10 @@ const PestDetection = () => {
 
   const handlePestSelect = (pest) => {
     setSelectedPest(pest);
-    // You could open a modal or navigate to detailed view here
-    console.log('Selected pest:', pest);
+    // Redirect to Wikipedia page for the selected pest
+    if (pest.wikipediaUrl) {
+      window.open(pest.wikipediaUrl, '_blank');
+    }
   };
 
   const handleReportSubmit = (report) => {
