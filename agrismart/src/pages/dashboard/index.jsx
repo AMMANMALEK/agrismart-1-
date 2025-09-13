@@ -169,7 +169,7 @@ const Dashboard = () => {
               <CropYieldCard />
             </div>
             <div className="xl:col-span-1">
-              <QuickStatsCard />
+              <MarketPriceCard />
             </div>
 
             {/* Row 2 */}
@@ -185,7 +185,7 @@ const Dashboard = () => {
               <ScheduleCard />
             </div>
             <div className="xl:col-span-1">
-              <MarketPriceCard />
+              <QuickStatsCard />
             </div>
           </div>
 
