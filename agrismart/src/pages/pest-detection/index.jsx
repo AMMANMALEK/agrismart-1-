@@ -27,7 +27,7 @@ const PestDetection = () => {
       scientificName: "Aphis gossypii",
       category: "insects",
       severity: "medium",
-      image: "https://images.pexels.com/photos/6129507/pexels-photo-6129507.jpeg",
+      image: "/assets/images/aphids-new.jpg",
       affectedCrops: ["Tomato", "Pepper", "Cucumber", "Cotton"],
       symptoms: ["Yellowing leaves", "Sticky honeydew", "Curled leaves"],
       season: "Spring-Summer"
@@ -38,7 +38,7 @@ const PestDetection = () => {
       scientificName: "Phytophthora infestans",
       category: "diseases",
       severity: "high",
-      image: "https://images.pexels.com/photos/4750270/pexels-photo-4750270.jpeg",
+      image: "/assets/images/late-blight-new.jpg",
       affectedCrops: ["Tomato", "Potato"],
       symptoms: ["Dark lesions on leaves", "White fungal growth", "Fruit rot"],
       season: "Monsoon"
@@ -49,7 +49,7 @@ const PestDetection = () => {
       scientificName: "Bemisia tabaci",
       category: "insects",
       severity: "medium",
-      image: "https://images.pexels.com/photos/8728380/pexels-photo-8728380.jpeg",
+      image: "/assets/images/whitefly-new.jpg",
       affectedCrops: ["Cotton", "Tomato", "Brinjal"],
       symptoms: ["Yellow sticky traps", "Sooty mold", "Leaf yellowing"],
       season: "Year-round"
@@ -60,7 +60,7 @@ const PestDetection = () => {
       scientificName: "Nutrient deficiency",
       category: "deficiencies",
       severity: "low",
-      image: "https://images.pexels.com/photos/4750271/pexels-photo-4750271.jpeg",
+      image: "/assets/images/Nitrogen_deficiency.jpg",
       affectedCrops: ["Rice", "Wheat", "Corn"],
       symptoms: ["Yellowing of older leaves", "Stunted growth", "Poor yield"],
       season: "Growing season"
@@ -71,7 +71,7 @@ const PestDetection = () => {
       scientificName: "Thrips tabaci",
       category: "insects",
       severity: "medium",
-      image: "https://images.pexels.com/photos/6129508/pexels-photo-6129508.jpeg",
+      image: "/assets/images/thrips-new.jpg",
       affectedCrops: ["Onion", "Garlic", "Tomato"],
       symptoms: ["Silver streaks on leaves", "Black spots", "Leaf curling"],
       season: "Summer"
@@ -82,7 +82,7 @@ const PestDetection = () => {
       scientificName: "Erysiphe cichoracearum",
       category: "diseases",
       severity: "medium",
-      image: "https://images.pexels.com/photos/4750272/pexels-photo-4750272.jpeg",
+      image: "/assets/images/powdery-mildew-new.jpg",
       affectedCrops: ["Cucumber", "Pumpkin", "Grapes"],
       symptoms: ["White powdery coating", "Leaf distortion", "Reduced photosynthesis"],
       season: "Cool humid weather"
