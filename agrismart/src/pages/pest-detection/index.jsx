@@ -60,7 +60,7 @@ const PestDetection = () => {
       scientificName: "Nutrient deficiency",
       category: "deficiencies",
       severity: "low",
-      image: "/assets/images/Nitrogen_deficiency.jpg",
+      image: "/assets/images/Nitrogen_deficiency.jpeg",
       affectedCrops: ["Rice", "Wheat", "Corn"],
       symptoms: ["Yellowing of older leaves", "Stunted growth", "Poor yield"],
       season: "Growing season"
@@ -82,7 +82,7 @@ const PestDetection = () => {
       scientificName: "Erysiphe cichoracearum",
       category: "diseases",
       severity: "medium",
-      image: "/assets/images/powdery-mildew-new.jpg",
+      image: "/assets/images/powdery-mildew-new.jpeg",
       affectedCrops: ["Cucumber", "Pumpkin", "Grapes"],
       symptoms: ["White powdery coating", "Leaf distortion", "Reduced photosynthesis"],
       season: "Cool humid weather"
