@@ -83,11 +83,11 @@ const Register = () => {
                   <span>1800-123-456</span>
                 </a>
                 <a 
-                  href="mailto:support@agrismart.com" 
+                  href="mailto:support@agrivision.com" 
                   className="flex items-center space-x-1 text-primary hover:underline"
                 >
                   <Icon name="Mail" size={12} />
-                  <span>support@agrismart.com</span>
+                  <span>support@agrivision.com</span>
                 </a>
               </div>
             </div>

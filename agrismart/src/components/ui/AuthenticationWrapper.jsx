@@ -28,8 +28,19 @@ const AuthenticationWrapper = ({ children, title, subtitle, theme = 'default' })
         {/* Logo and Branding */}
         <div className="text-center mb-8">
           <div className="flex items-center justify-center mb-4">
-            <div className={theme === 'earth' ? "flex items-center justify-center w-16 h-16 rounded-2xl shadow-agricultural" : "flex items-center justify-center w-16 h-16 bg-primary rounded-2xl shadow-agricultural"} style={theme === 'earth' ? { backgroundColor: '#228B22' } : undefined}>
-              <Icon name="Leaf" size={32} color="white" />
+            <div className="flex items-center justify-center w-16 h-16 rounded-2xl shadow-agricultural">
+              <img 
+                src="/assets/images/agrivision-logo.jpg" 
+                alt="AgriVision Logo" 
+                className="w-16 h-16 object-contain rounded-2xl"
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
+              />
+              <div className={theme === 'earth' ? "hidden items-center justify-center w-16 h-16 rounded-2xl shadow-agricultural" : "hidden items-center justify-center w-16 h-16 bg-primary rounded-2xl shadow-agricultural"} style={theme === 'earth' ? { backgroundColor: '#228B22' } : undefined}>
+                <Icon name="Leaf" size={32} color="white" />
+              </div>
             </div>
           </div>
           <h1 className={
@@ -38,7 +49,7 @@ const AuthenticationWrapper = ({ children, title, subtitle, theme = 'default' })
               : theme === 'earth'
               ? "text-2xl font-bold mb-2"
               : "text-2xl font-bold text-foreground mb-2"
-          } style={theme === 'earth' ? { color: '#228B22' } : undefined}>{t('app.name')}</h1>
+          } style={theme === 'earth' ? { color: '#228B22' } : undefined}>AgriVision</h1>
           <p className={theme === 'neon' ? "text-sm opacity-80" : theme === 'earth' ? "text-sm opacity-90" : "text-muted-foreground text-sm"}>{t('app.tagline')}</p>
         </div>
 

@@ -63,12 +63,23 @@ const MainSidebar = ({ isCollapsed = false, onToggle, userData = null }) => {
           {/* Logo Section */}
           <div className="flex items-center justify-between p-4 border-b border-border">
             <div className="flex items-center space-x-3">
-              <div className="flex items-center justify-center w-8 h-8 bg-primary rounded-lg">
-                <Icon name="Leaf" size={20} color="white" />
+              <div className="flex items-center justify-center w-8 h-8">
+                <img 
+                  src="/assets/images/agrivision-logo.jpg" 
+                  alt="AgriVision Logo" 
+                  className="w-8 h-8 object-contain"
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    e.target.nextSibling.style.display = 'flex';
+                  }}
+                />
+                <div className="hidden items-center justify-center w-8 h-8 bg-primary rounded-lg">
+                  <Icon name="Leaf" size={20} color="white" />
+                </div>
               </div>
               {isExpanded && (
                 <div className="flex flex-col">
-                  <span className="text-lg font-semibold text-foreground">AgriSmart</span>
+                  <span className="text-lg font-semibold text-foreground">AgriVision</span>
                   <span className="text-xs text-muted-foreground">Farm Management</span>
                 </div>
               )}
