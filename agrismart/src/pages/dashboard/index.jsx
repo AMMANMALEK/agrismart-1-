@@ -23,6 +23,8 @@ const Dashboard = ({ userData = null }) => {
   const [currentTime, setCurrentTime] = useState(new Date());
   const [greeting, setGreeting] = useState('');
   const [showSettings, setShowSettings] = useState(false);
+  const [soilData, setSoilData] = useState(null);
+  const [weatherData, setWeatherData] = useState(null);
 
   // Default user data if none provided
   const defaultUserData = {
@@ -51,6 +53,26 @@ const Dashboard = ({ userData = null }) => {
       setGreeting(t('dashboard.greetEvening'));
     }
   }, [currentTime, t, i18n.language]);
+
+  // Load soil data from localStorage
+  useEffect(() => {
+    const savedSoilMetrics = localStorage.getItem('userSoilMetrics');
+    if (savedSoilMetrics) {
+      setSoilData(JSON.parse(savedSoilMetrics));
+    }
+  }, []);
+
+  // Load weather data from localStorage/cache
+  useEffect(() => {
+    const savedWeatherData = localStorage.getItem('weatherData');
+    if (savedWeatherData) {
+      const weather = JSON.parse(savedWeatherData);
+      // Check if data is not too old (within 10 minutes)
+      if (Date.now() - weather.timestamp < 10 * 60 * 1000) {
+        setWeatherData(weather.data);
+      }
+    }
+  }, []);
 
   const locale = i18n?.language === 'hi' ? 'hi-IN' : i18n?.language === 'gu' ? 'gu-IN' : 'en-US';
 
@@ -176,7 +198,7 @@ const Dashboard = ({ userData = null }) => {
               <WeatherCard />
             </div>
             <div className="xl:col-span-1">
-              <CropYieldCard />
+              <CropYieldCard soilData={soilData} weatherData={weatherData} />
             </div>
             <div className="xl:col-span-1">
               <MarketPriceCard />
