@@ -1,26 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
 
-const SoilHealthCard = () => {
-  const soilData = {
-    ph: 6.8,
-    moisture: 65,
-    temperature: 24,
-    npk: {
-      nitrogen: 78,
-      phosphorus: 65,
-      potassium: 82
-    }
-  };
+import { apiGet } from '../../../lib/api';
 
-  const npkData = [
-    { name: 'N', value: soilData?.npk?.nitrogen, color: 'var(--color-primary)' },
-    { name: 'P', value: soilData?.npk?.phosphorus, color: 'var(--color-secondary)' },
-    { name: 'K', value: soilData?.npk?.potassium, color: 'var(--color-accent)' }
-  ];
+
+const SoilHealthCard = () => {
+  const [soilData, setSoilData] = useState({});
+  const [npkData, setNpkData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchSoil() {
+      setLoading(true);
+      setError(null);
+      try {
+        // Adjust endpoint as per your backend API docs
+        const data = await apiGet('/dashboard/overview');
+        const soil = data?.soil || {};
+        setSoilData(soil);
+        setNpkData([
+          { name: 'N', value: soil?.npk?.nitrogen, color: 'var(--color-primary)' },
+          { name: 'P', value: soil?.npk?.phosphorus, color: 'var(--color-secondary)' },
+          { name: 'K', value: soil?.npk?.potassium, color: 'var(--color-accent)' }
+        ]);
+      } catch (e) {
+        setError('Failed to load soil health data');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchSoil();
+  }, []);
+
 
   const getHealthStatus = (value, type) => {
     if (type === 'ph') {
@@ -36,6 +51,12 @@ const SoilHealthCard = () => {
   const phStatus = getHealthStatus(soilData?.ph, 'ph');
   const moistureStatus = getHealthStatus(soilData?.moisture);
 
+  if (loading) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">Loading soil health...</div>;
+  }
+  if (error) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural text-red-500">{error}</div>;
+  }
   return (
     <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">
       <div className="flex items-center justify-between mb-6">
@@ -62,7 +83,7 @@ const SoilHealthCard = () => {
               <span className="text-sm font-medium text-card-foreground">pH Level</span>
             </div>
             <div className="text-right">
-              <div className="font-semibold text-card-foreground">{soilData?.ph}</div>
+              <div className="font-semibold text-card-foreground">{soilData?.ph ?? '--'}</div>
               <div 
                 className="text-xs font-medium"
                 style={{ color: phStatus?.color }}
@@ -78,7 +99,7 @@ const SoilHealthCard = () => {
               <span className="text-sm font-medium text-card-foreground">Moisture</span>
             </div>
             <div className="text-right">
-              <div className="font-semibold text-card-foreground">{soilData?.moisture}%</div>
+              <div className="font-semibold text-card-foreground">{soilData?.moisture ?? '--'}%</div>
               <div 
                 className="text-xs font-medium"
                 style={{ color: moistureStatus?.color }}
@@ -94,7 +115,7 @@ const SoilHealthCard = () => {
               <span className="text-sm font-medium text-card-foreground">Temperature</span>
             </div>
             <div className="text-right">
-              <div className="font-semibold text-card-foreground">{soilData?.temperature}°C</div>
+              <div className="font-semibold text-card-foreground">{soilData?.temperature ?? '--'}°C</div>
               <div className="text-xs text-muted-foreground">Optimal</div>
             </div>
           </div>
@@ -121,9 +142,9 @@ const SoilHealthCard = () => {
             </ResponsiveContainer>
           </div>
           <div className="flex justify-between text-xs text-muted-foreground mt-2">
-            <span>N: {soilData?.npk?.nitrogen}%</span>
-            <span>P: {soilData?.npk?.phosphorus}%</span>
-            <span>K: {soilData?.npk?.potassium}%</span>
+            <span>N: {soilData?.npk?.nitrogen ?? '--'}%</span>
+            <span>P: {soilData?.npk?.phosphorus ?? '--'}%</span>
+            <span>K: {soilData?.npk?.potassium ?? '--'}%</span>
           </div>
         </div>
       </div>

@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import Input from '../../../components/ui/Input';
 import Button from '../../../components/ui/Button';
 import Icon from '../../../components/AppIcon';
-import { signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../../../lib/firebase';
+// import { signInWithPopup } from 'firebase/auth';
+// import { auth, googleProvider } from '../../../lib/firebase';
+import { apiPost } from '../../../lib/api';
 import { useTranslation } from 'react-i18next';
 
 const LoginForm = () => {
@@ -19,25 +20,11 @@ const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
 
+  // Google login can be implemented if backend supports OAuth
   const handleGoogle = async () => {
-    try {
-      setIsLoading(true);
-      const res = await signInWithPopup(auth, googleProvider);
-      localStorage.setItem('isAuthenticated', 'true');
-      localStorage.setItem('userEmail', res?.user?.email || '');
-      navigate('/dashboard');
-    } catch (e) {
-      setErrors({ general: 'Google sign-in failed. Please try again.' });
-    } finally {
-      setIsLoading(false);
-    }
+    setErrors({ general: 'Google sign-in is not supported in backend login.' });
   };
 
-  // Mock credentials for demonstration
-  const mockCredentials = {
-    email: 'farmer@agrismart.com',
-    password: 'harvest2024'
-  };
 
   const handleInputChange = (e) => {
     const { name, value } = e?.target;
@@ -76,19 +63,21 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e?.preventDefault();
-    
     if (!validateForm()) {
       return;
     }
-    
     setIsLoading(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      if (formData?.email === mockCredentials?.email && formData?.password === mockCredentials?.password) {
-        // Successful login
+    try {
+      const res = await apiPost('/auth/login', {
+        email: formData.email,
+        password: formData.password
+      });
+      // Save token and user info
+      if (res?.access_token) {
+        localStorage.setItem('auth_token', res.access_token);
         localStorage.setItem('isAuthenticated', 'true');
-        localStorage.setItem('userEmail', formData?.email);
+        localStorage.setItem('userEmail', formData.email);
+        localStorage.setItem('userProfile', JSON.stringify(res.user));
         if (rememberMe) {
           localStorage.setItem('rememberMe', 'true');
         } else {
@@ -96,13 +85,13 @@ const LoginForm = () => {
         }
         navigate('/dashboard');
       } else {
-        // Failed login
-        setErrors({
-          general: `Invalid credentials. Use email: ${mockCredentials?.email} and password: ${mockCredentials?.password}`
-        });
+        setErrors({ general: res?.message || 'Login failed. Please try again.' });
       }
+    } catch (err) {
+      setErrors({ general: err?.message || 'Login failed. Please try again.' });
+    } finally {
       setIsLoading(false);
-    }, 1500);
+    }
   };
 
   return (

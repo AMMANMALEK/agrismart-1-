@@ -1,56 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 
-const MarketPriceCard = () => {
-  const marketData = [
-    {
-      id: 1,
-      crop: 'Wheat',
-      currentPrice: 2850,
-      previousPrice: 2780,
-      change: 2.5,
-      market: 'Local Mandi',
-      demand: 'high',
-      icon: 'Wheat'
-    },
-    {
-      id: 2,
-      crop: 'Rice',
-      currentPrice: 3200,
-      previousPrice: 3350,
-      change: -4.5,
-      market: 'Regional Market',
-      demand: 'medium',
-      icon: 'Wheat'
-    },
-    {
-      id: 3,
-      crop: 'Corn',
-      currentPrice: 1950,
-      previousPrice: 1920,
-      change: 1.6,
-      market: 'Wholesale Market',
-      demand: 'high',
-      icon: 'Wheat'
-    },
-    {
-      id: 4,
-      crop: 'Soybean',
-      currentPrice: 4200,
-      previousPrice: 4100,
-      change: 2.4,
-      market: 'Export Terminal',
-      demand: 'very high',
-      icon: 'Wheat'
-    }
-  ];
+import { apiGet } from '../../../lib/api';
 
-  const profitableCrops = [
-    { name: 'Quinoa', profit: '+45%', season: 'Rabi' },
-    { name: 'Organic Wheat', profit: '+32%', season: 'Rabi' },
-    { name: 'Sunflower', profit: '+28%', season: 'Kharif' }
-  ];
+
+const MarketPriceCard = () => {
+  const [marketData, setMarketData] = useState([]);
+  const [profitableCrops, setProfitableCrops] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchMarket() {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await apiGet('/dashboard/analytics');
+        setMarketData(data?.marketData || []);
+        setProfitableCrops(data?.profitableCrops || []);
+      } catch (e) {
+        setError('Failed to load market data');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMarket();
+  }, []);
 
   const getChangeColor = (change) => {
     return change >= 0 ? 'var(--color-success)' : 'var(--color-error)';
@@ -70,6 +46,12 @@ const MarketPriceCard = () => {
     }
   };
 
+  if (loading) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">Loading market data...</div>;
+  }
+  if (error) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural text-red-500">{error}</div>;
+  }
   return (
     <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">
       <div className="flex items-center justify-between mb-6">
@@ -85,9 +67,9 @@ const MarketPriceCard = () => {
       </div>
       <div className="space-y-3 mb-6">
         {marketData?.slice(0, 3)?.map((item) => (
-          <div key={item?.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+          <div key={item?.id || item?.crop} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
             <div className="flex items-center space-x-3">
-              <Icon name={item?.icon} size={20} color="var(--color-primary)" />
+              <Icon name={item?.icon || 'Wheat'} size={20} color="var(--color-primary)" />
               <div>
                 <div className="font-medium text-card-foreground">{item?.crop}</div>
                 <div className="text-xs text-muted-foreground">{item?.market}</div>

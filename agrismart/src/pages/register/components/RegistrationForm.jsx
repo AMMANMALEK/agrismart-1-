@@ -1,3 +1,4 @@
+import { apiPost } from '../../../lib/api';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../../components/ui/Button';
@@ -11,15 +12,14 @@ import { auth } from '../../../lib/firebase';
 const RegistrationForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    fullName: '',
+    name: '',
     email: '',
     phone: '',
     password: '',
     confirmPassword: '',
-    farmLocation: '',
-    farmSize: '',
-    cropTypes: [],
-    experienceLevel: '',
+    region: '',
+    farm_size: '',
+    main_crops: [],
     language: 'en',
     acceptTerms: false,
     acceptPrivacy: false
@@ -38,12 +38,6 @@ const RegistrationForm = () => {
     { value: 'gu', label: 'ગુજરાતી (Gujarati)' }
   ];
 
-  const farmSizeOptions = [
-    { value: 'small', label: 'Small (< 2 acres)', description: 'Less than 2 acres' },
-    { value: 'medium', label: 'Medium (2-10 acres)', description: '2 to 10 acres' },
-    { value: 'large', label: 'Large (10-50 acres)', description: '10 to 50 acres' },
-    { value: 'commercial', label: 'Commercial (> 50 acres)', description: 'More than 50 acres' }
-  ];
 
   const experienceOptions = [
     { value: 'beginner', label: 'Beginner (0-2 years)' },
@@ -65,7 +59,7 @@ const RegistrationForm = () => {
 
   const calculatePasswordStrength = (password) => {
     let strength = 0;
-    if (password?.length >= 8) strength += 25;
+    if (password?.length >= 6) strength += 25;
     if (/[A-Z]/?.test(password)) strength += 25;
     if (/[0-9]/?.test(password)) strength += 25;
     if (/[^A-Za-z0-9]/?.test(password)) strength += 25;
@@ -119,45 +113,43 @@ const RegistrationForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
-
-    if (!formData?.fullName?.trim()) {
-      newErrors.fullName = 'Full name is required';
+    
+    if (!formData?.name) {
+      newErrors.name = 'Full name is required';
     }
-
-    if (!formData?.email?.trim()) {
+    
+    if (!formData?.email) {
       newErrors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/?.test(formData?.email)) {
+    } else if (!/\S+@\S+\.\S+/?.test(formData?.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-
-    if (!formData?.phone?.trim()) {
+    
+    if (!formData?.phone) {
       newErrors.phone = 'Phone number is required';
-    } else if (!/^\+?[\d\s-()]{10,}$/?.test(formData?.phone)) {
-      newErrors.phone = 'Please enter a valid phone number';
     }
-
+    
     if (!formData?.password) {
       newErrors.password = 'Password is required';
-    } else if (formData?.password?.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters long';
+    } else if (formData?.password?.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
     }
-
-    if (!formData?.confirmPassword) {
-      newErrors.confirmPassword = 'Please confirm your password';
-    } else if (formData?.password !== formData?.confirmPassword) {
+    
+    if (formData?.password !== formData?.confirmPassword) {
       newErrors.confirmPassword = 'Passwords do not match';
     }
-
-    if (!formData?.farmLocation?.trim()) {
-      newErrors.farmLocation = 'Farm location is required';
+    
+    if (!formData?.region) {
+      newErrors.region = 'Please enter your farm region';
+    }
+    
+    if (!formData?.farm_size) {
+      newErrors.farm_size = 'Please enter your farm size';
+    } else if (isNaN(Number(formData.farm_size)) || Number(formData.farm_size) <= 0) {
+      newErrors.farm_size = 'Farm size must be a positive number';
     }
 
-    if (!formData?.farmSize) {
-      newErrors.farmSize = 'Please select your farm size';
-    }
-
-    if (!formData?.experienceLevel) {
-      newErrors.experienceLevel = 'Please select your experience level';
+    if (!formData?.main_crops?.length) {
+      newErrors.main_crops = 'Please select at least one crop';
     }
 
     if (!formData?.acceptTerms) {
@@ -174,22 +166,32 @@ const RegistrationForm = () => {
 
   const handleSubmit = async (e) => {
     e?.preventDefault();
-    
     if (!validateForm()) {
       return;
     }
-
     setIsLoading(true);
-    
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      const res = await apiPost('/auth/register', {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        password: formData.password,
+        region: formData.region,
+        farm_size: parseFloat(formData.farm_size),
+        main_crops: formData.main_crops.join(', ')
+      });
       
-      // Mock successful registration
-      console.log('Registration successful:', formData);
-      navigate('/dashboard');
-    } catch (error) {
-      console.error('Registration failed:', error);
+      if (res?.access_token) {
+        localStorage.setItem('auth_token', res.access_token);
+        localStorage.setItem('isAuthenticated', 'true');
+        localStorage.setItem('userEmail', formData.email);
+        localStorage.setItem('userProfile', JSON.stringify(res.user));
+        navigate('/dashboard');
+      } else {
+        setErrors({ general: res?.message || 'Registration failed. Please try again.' });
+      }
+    } catch (err) {
+      setErrors({ general: err?.message || 'Registration failed. Please try again.' });
     } finally {
       setIsLoading(false);
     }
@@ -222,8 +224,8 @@ const RegistrationForm = () => {
           label="Full Name"
           type="text"
           placeholder="Enter your full name"
-          value={formData?.fullName}
-          onChange={(e) => handleInputChange('fullName', e?.target?.value)}
+          value={formData?.name}
+          onChange={(e) => handleInputChange('name', e?.target?.value)}
           error={errors?.fullName}
           required
         />
@@ -331,22 +333,24 @@ const RegistrationForm = () => {
         </h3>
 
         <Input
-          label="Farm Location"
+          label="Farm Region"
           type="text"
           placeholder="City, State, Country"
-          value={formData?.farmLocation}
-          onChange={(e) => handleInputChange('farmLocation', e?.target?.value)}
+          value={formData?.region}
+          onChange={(e) => handleInputChange('region', e?.target?.value)}
           error={errors?.farmLocation}
           required
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Select
-            label="Farm Size"
-            description="Select your total farm area"
-            options={farmSizeOptions}
-            value={formData?.farmSize}
-            onChange={(value) => handleInputChange('farmSize', value)}
+          <Input
+            label="Farm Size (acres)"
+            type="number"
+            min="0"
+            step="any"
+            placeholder="e.g. 10, 5, 2.5"
+            value={formData?.farm_size}
+            onChange={(e) => handleInputChange('farm_size', e?.target?.value)}
             error={errors?.farmSize}
             required
           />
@@ -364,13 +368,14 @@ const RegistrationForm = () => {
 
         <Select
           label="Primary Crop Types"
-          description="Select the crops you primarily grow (optional)"
+          description="Select the crops you primarily grow"
           options={cropTypeOptions}
-          value={formData?.cropTypes}
-          onChange={(value) => handleInputChange('cropTypes', value)}
+          value={formData?.main_crops}
+          onChange={(value) => handleInputChange('main_crops', value)}
           multiple
           searchable
           clearable
+          required
         />
       </div>
       {/* Terms and Conditions */}

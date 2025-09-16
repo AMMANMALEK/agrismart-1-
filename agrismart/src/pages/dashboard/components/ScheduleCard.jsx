@@ -1,54 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 
+import { apiGet } from '../../../lib/api';
+
+
 const ScheduleCard = () => {
-  const scheduleItems = [
-    {
-      id: 1,
-      type: 'irrigation',
-      title: 'Irrigation Schedule',
-      description: 'Water wheat field section A-1 to A-3',
-      time: '06:00 AM',
-      date: 'Today',
-      status: 'pending',
-      icon: 'Droplets',
-      priority: 'high'
-    },
-    {
-      id: 2,
-      type: 'fertilizer',
-      title: 'Fertilizer Application',
-      description: 'Apply NPK fertilizer to corn field B-2',
-      time: '08:30 AM',
-      date: 'Today',
-      status: 'completed',
-      icon: 'Beaker',
-      priority: 'medium'
-    },
-    {
-      id: 3,
-      type: 'inspection',
-      title: 'Field Inspection',
-      description: 'Check for pest activity in rice field C-1',
-      time: '10:00 AM',
-      date: 'Tomorrow',
-      status: 'scheduled',
-      icon: 'Search',
-      priority: 'medium'
-    },
-    {
-      id: 4,
-      type: 'harvest',
-      title: 'Harvest Planning',
-      description: 'Prepare equipment for wheat harvest',
-      time: '02:00 PM',
-      date: 'Tomorrow',
-      status: 'scheduled',
-      icon: 'Scissors',
-      priority: 'low'
+  const [scheduleItems, setScheduleItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchSchedule() {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await apiGet('/irrigation/schedule');
+        setScheduleItems(data?.schedule || []);
+      } catch (e) {
+        setError('Failed to load schedule');
+      } finally {
+        setLoading(false);
+      }
     }
-  ];
+    fetchSchedule();
+  }, []);
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -77,6 +53,12 @@ const ScheduleCard = () => {
     }
   };
 
+  if (loading) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">Loading schedule...</div>;
+  }
+  if (error) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural text-red-500">{error}</div>;
+  }
   return (
     <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">
       <div className="flex items-center justify-between mb-6">
@@ -93,13 +75,13 @@ const ScheduleCard = () => {
       <div className="space-y-3">
         {scheduleItems?.slice(0, 2)?.map((item) => (
           <div 
-            key={item?.id} 
+            key={item?.id || item?.title} 
             className={`p-4 rounded-lg border ${getStatusBg(item?.status)}`}
           >
             <div className="flex items-center space-x-3">
               <div className="p-2 rounded-md" style={{ backgroundColor: getStatusColor(item?.status) + '20' }}>
                 <Icon 
-                  name={item?.icon} 
+                  name={item?.icon || 'Calendar'} 
                   size={16} 
                   color={getStatusColor(item?.status)} 
                 />

@@ -10,6 +10,7 @@ import SoilTrendChart from './components/SoilTrendChart';
 import SoilTestingCard from './components/SoilTestingCard';
 import SoilRecommendationCard from './components/SoilRecommendationCard';
 import SoilParameterFilter from './components/SoilParameterFilter';
+import SoilMetricsInputForm from './components/SoilMetricsInputForm';
 
 const SoilHealthMonitor = () => {
   const { t } = useTranslation();
@@ -24,52 +25,111 @@ const SoilHealthMonitor = () => {
     endDate: ''
   });
 
-  // Mock soil metrics data
+  // User input soil metrics state
+  const [userSoilMetrics, setUserSoilMetrics] = useState({
+    nitrogen: 45,
+    phosphorus: 28,
+    temperature: 25,
+    soilType: 'loamy',
+    humidity: 32
+  });
+
+  const [showInputForm, setShowInputForm] = useState(false);
+
+  // Function to determine status based on values
+  const getMetricStatus = (type, value) => {
+    switch (type) {
+      case 'nitrogen':
+        if (value < 30) return 'critical';
+        if (value < 50) return 'warning';
+        return 'good';
+      case 'phosphorus':
+        if (value < 15) return 'critical';
+        if (value < 25) return 'warning';
+        return 'good';
+      case 'temperature':
+        if (value < 10 || value > 35) return 'critical';
+        if (value < 15 || value > 30) return 'warning';
+        return 'good';
+      case 'humidity':
+        if (value < 20 || value > 80) return 'critical';
+        if (value < 30 || value > 70) return 'warning';
+        return 'good';
+      default:
+        return 'good';
+    }
+  };
+
+  // Function to get recommendations based on values
+  const getRecommendation = (type, value, status) => {
+    switch (type) {
+      case 'nitrogen':
+        if (status === 'critical') return 'Urgent: Apply nitrogen fertilizer immediately. Current levels are critically low.';
+        if (status === 'warning') return 'Consider nitrogen fertilizer application. Current levels are below optimal range.';
+        return 'Nitrogen levels are optimal. Continue current management practices.';
+      case 'phosphorus':
+        if (status === 'critical') return 'Critical: Apply phosphorus fertilizer urgently to prevent crop deficiency.';
+        if (status === 'warning') return 'Apply phosphorus fertilizer to reach optimal levels for better crop growth.';
+        return 'Phosphorus levels are within optimal range. Continue current management.';
+      case 'temperature':
+        if (status === 'critical') return 'Temperature is outside optimal range. Consider protective measures or timing adjustments.';
+        if (status === 'warning') return 'Temperature is suboptimal. Monitor closely and adjust practices if needed.';
+        return 'Soil temperature is optimal for current crop growth.';
+      case 'humidity':
+        if (status === 'critical') return value > 80 ? 'Humidity too high. Improve drainage and ventilation.' : 'Humidity too low. Increase irrigation frequency.';
+        if (status === 'warning') return value > 70 ? 'Humidity slightly high. Monitor for fungal issues.' : 'Humidity low. Consider increasing irrigation.';
+        return 'Humidity levels are optimal for crop growth.';
+      default:
+        return 'Levels are within acceptable range.';
+    }
+  };
+
+  // Dynamic soil metrics based on user input
   const soilMetrics = [
     {
       title: 'Nitrogen (N)',
-      value: '45',
+      value: userSoilMetrics.nitrogen.toString(),
       unit: 'kg/ha',
-      status: 'warning',
+      status: getMetricStatus('nitrogen', userSoilMetrics.nitrogen),
       icon: 'Leaf',
-      recommendation: 'Consider nitrogen fertilizer application. Current levels are below optimal range.',
-      trend: 'down'
+      recommendation: getRecommendation('nitrogen', userSoilMetrics.nitrogen, getMetricStatus('nitrogen', userSoilMetrics.nitrogen)),
+      trend: 'stable'
     },
     {
       title: 'Phosphorus (P)',
-      value: '28',
+      value: userSoilMetrics.phosphorus.toString(),
       unit: 'kg/ha',
-      status: 'good',
+      status: getMetricStatus('phosphorus', userSoilMetrics.phosphorus),
       icon: 'Sprout',
-      recommendation: 'Phosphorus levels are within optimal range. Continue current management.',
-      trend: 'up'
+      recommendation: getRecommendation('phosphorus', userSoilMetrics.phosphorus, getMetricStatus('phosphorus', userSoilMetrics.phosphorus)),
+      trend: 'stable'
     },
     {
-      title: 'Potassium (K)',
-      value: '62',
-      unit: 'kg/ha',
+      title: 'Temperature',
+      value: userSoilMetrics.temperature.toString(),
+      unit: '°C',
+      status: getMetricStatus('temperature', userSoilMetrics.temperature),
+      icon: 'Thermometer',
+      recommendation: getRecommendation('temperature', userSoilMetrics.temperature, getMetricStatus('temperature', userSoilMetrics.temperature)),
+      trend: 'stable'
+    },
+    {
+      title: 'Soil Type',
+      value: userSoilMetrics.soilType.charAt(0).toUpperCase() + userSoilMetrics.soilType.slice(1),
+      unit: '',
       status: 'good',
-      icon: 'Zap',
-      recommendation: 'Potassium levels are excellent. No immediate action required.',
-      trend: 'up'
+      icon: 'Mountain',
+      recommendation: `Current soil type is ${userSoilMetrics.soilType}. Adjust farming practices accordingly.`,
+      trend: 'stable'
     },
     {
-      title: 'pH Level',
-      value: '5.8',
-      unit: 'pH',
-      status: 'critical',
-      icon: 'Beaker',
-      recommendation: 'Soil is acidic. Apply lime to increase pH to 6.0-7.0 range.',
-      trend: 'down'
-    },
-    {
-      title: 'Moisture Content',
-      value: '32',
+      title: 'Humidity',
+      value: userSoilMetrics.humidity.toString(),
       unit: '%',
-      status: 'warning',
+      status: getMetricStatus('humidity', userSoilMetrics.humidity),
       icon: 'Droplets',
-      recommendation: 'Soil moisture is low. Increase irrigation frequency.',
-      trend: 'down'
+      recommendation: getRecommendation('humidity', userSoilMetrics.humidity, getMetricStatus('humidity', userSoilMetrics.humidity)),
+      trend: 'stable'
     },
     {
       title: 'Organic Matter',
@@ -199,6 +259,21 @@ const SoilHealthMonitor = () => {
     alert(`Recommendation "${recommendation?.title}" has been added to your action plan.`);
   };
 
+  const handleSoilMetricsSubmit = (newMetrics) => {
+    setUserSoilMetrics(newMetrics);
+    setShowInputForm(false);
+    // You could also save to localStorage or send to API here
+    localStorage.setItem('userSoilMetrics', JSON.stringify(newMetrics));
+  };
+
+  // Load saved metrics on component mount
+  useEffect(() => {
+    const savedMetrics = localStorage.getItem('userSoilMetrics');
+    if (savedMetrics) {
+      setUserSoilMetrics(JSON.parse(savedMetrics));
+    }
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -217,6 +292,20 @@ const SoilHealthMonitor = () => {
                   <h1 className="text-2xl font-bold text-foreground">{t('soil.title')}</h1>
                   <p className="text-muted-foreground">{t('soil.subtitle')}</p>
                 </div>
+                <div className="flex gap-2">
+                  <Button 
+                    variant={showInputForm ? "default" : "outline"} 
+                    size="sm" 
+                    onClick={() => setShowInputForm(!showInputForm)}
+                    iconName={showInputForm ? "X" : "Edit"}
+                    iconPosition="left"
+                  >
+                    {showInputForm ? 'Cancel' : 'Update Metrics'}
+                  </Button>
+                  <Button variant="outline" size="sm" iconName="Download" iconPosition="left">
+                    {t('soil.export')}
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
@@ -225,9 +314,22 @@ const SoilHealthMonitor = () => {
             {/* Filter Section */}
             <SoilParameterFilter filters={filters} onFilterChange={handleFilterChange} />
 
+            {/* Soil Metrics Input Form */}
+            {showInputForm && (
+              <SoilMetricsInputForm
+                onSubmit={handleSoilMetricsSubmit}
+                initialValues={userSoilMetrics}
+              />
+            )}
+
             {/* Current Soil Metrics */}
             <div>
-              <h2 className="text-xl font-semibold text-foreground mb-4">{t('soil.currentMetrics')}</h2>
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-foreground">{t('soil.currentMetrics')}</h2>
+                <div className="text-sm text-muted-foreground">
+                  Last updated: {new Date().toLocaleDateString()}
+                </div>
+              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {soilMetrics?.map((metric, index) => (
                   <SoilMetricsCard

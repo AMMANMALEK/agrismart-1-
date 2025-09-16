@@ -1,65 +1,39 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import { LineChart, Line, ResponsiveContainer } from 'recharts';
 
+import { apiGet } from '../../../lib/api';
+
+
 const QuickStatsCard = () => {
-  const stats = [
-    {
-      id: 1,
-      title: 'Total Farm Area',
-      value: '125.5',
-      unit: 'acres',
-      change: '+2.3%',
-      changeType: 'positive',
-      icon: 'MapPin',
-      color: 'var(--color-primary)',
-      bgColor: 'bg-primary/10'
-    },
-    {
-      id: 2,
-      title: 'Active Crops',
-      value: '8',
-      unit: 'varieties',
-      change: '+1',
-      changeType: 'positive',
-      icon: 'Wheat',
-      color: 'var(--color-success)',
-      bgColor: 'bg-success/10'
-    },
-    {
-      id: 3,
-      title: 'Water Usage',
-      value: '2,450',
-      unit: 'liters/day',
-      change: '-12%',
-      changeType: 'positive',
-      icon: 'Droplets',
-      color: 'var(--color-accent)',
-      bgColor: 'bg-accent/10'
-    },
-    {
-      id: 4,
-      title: 'Energy Consumption',
-      value: '145',
-      unit: 'kWh/day',
-      change: '-8%',
-      changeType: 'positive',
-      icon: 'Zap',
-      color: 'var(--color-warning)',
-      bgColor: 'bg-warning/10'
+  const [stats, setStats] = useState([]);
+  const [trendData, setTrendData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchStats() {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await apiGet('/dashboard/stats');
+        setStats(data?.stats || []);
+        setTrendData(data?.trendData || []);
+      } catch (e) {
+        setError('Failed to load stats');
+      } finally {
+        setLoading(false);
+      }
     }
-  ];
+    fetchStats();
+  }, []);
 
-  const trendData = [
-    { day: 1, value: 20 },
-    { day: 2, value: 25 },
-    { day: 3, value: 22 },
-    { day: 4, value: 28 },
-    { day: 5, value: 32 },
-    { day: 6, value: 30 },
-    { day: 7, value: 35 }
-  ];
-
+  if (loading) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">Loading stats...</div>;
+  }
+  if (error) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural text-red-500">{error}</div>;
+  }
   return (
     <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">
       <div className="flex items-center justify-between mb-6">
@@ -79,10 +53,10 @@ const QuickStatsCard = () => {
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
         {stats?.map((stat) => (
-          <div key={stat?.id} className="p-4 bg-muted/30 rounded-lg">
+          <div key={stat?.id || stat?.title} className="p-4 bg-muted/30 rounded-lg">
             <div className="flex items-center justify-between mb-2">
-              <div className={`p-2 rounded-md ${stat?.bgColor}`}>
-                <Icon name={stat?.icon} size={16} color={stat?.color} />
+              <div className={`p-2 rounded-md ${stat?.bgColor || ''}`}>
+                <Icon name={stat?.icon || 'Activity'} size={16} color={stat?.color || 'var(--color-primary)'} />
               </div>
               <span 
                 className="text-xs font-medium"

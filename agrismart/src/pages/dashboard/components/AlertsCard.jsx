@@ -1,40 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 
+import { apiGet } from '../../../lib/api';
+
+
 const AlertsCard = () => {
-  const alerts = [
-    {
-      id: 1,
-      type: 'pest',
-      severity: 'high',
-      title: 'Aphid Infestation Detected',
-      description: 'High risk of aphid infestation in wheat field section A-3',
-      action: 'Apply neem oil spray immediately',
-      timestamp: '2 hours ago',
-      icon: 'Bug'
-    },
-    {
-      id: 2,
-      type: 'disease',
-      severity: 'medium',
-      title: 'Leaf Rust Warning',
-      description: 'Weather conditions favor leaf rust development',
-      action: 'Monitor crops closely and prepare fungicide',
-      timestamp: '4 hours ago',
-      icon: 'AlertTriangle'
-    },
-    {
-      id: 3,
-      type: 'weather',
-      severity: 'low',
-      title: 'Heavy Rain Expected',
-      description: 'Rainfall expected in next 24 hours - 25mm',
-      action: 'Ensure proper drainage in low-lying areas',
-      timestamp: '6 hours ago',
-      icon: 'CloudRain'
+  const [alerts, setAlerts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchAlerts() {
+      setLoading(true);
+      setError(null);
+      try {
+        // Adjust endpoint as per your backend API docs
+        const data = await apiGet('/dashboard/overview');
+        setAlerts(data?.alerts || []);
+      } catch (e) {
+        setError('Failed to load alerts');
+      } finally {
+        setLoading(false);
+      }
     }
-  ];
+    fetchAlerts();
+  }, []);
 
   const getSeverityColor = (severity) => {
     switch (severity) {
@@ -54,6 +45,12 @@ const AlertsCard = () => {
     }
   };
 
+  if (loading) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">Loading alerts...</div>;
+  }
+  if (error) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural text-red-500">{error}</div>;
+  }
   return (
     <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">
       <div className="flex items-center justify-between mb-6">
@@ -70,14 +67,14 @@ const AlertsCard = () => {
       <div className="space-y-4">
         {alerts?.map((alert) => (
           <div 
-            key={alert?.id} 
+            key={alert?.id || alert?.title} 
             className={`p-4 rounded-lg border-l-4 ${getSeverityBg(alert?.severity)}`}
             style={{ borderLeftColor: getSeverityColor(alert?.severity) }}
           >
             <div className="flex items-start space-x-3">
               <div className="p-1.5 rounded-md" style={{ backgroundColor: getSeverityColor(alert?.severity) + '20' }}>
                 <Icon 
-                  name={alert?.icon} 
+                  name={alert?.icon || 'AlertCircle'} 
                   size={16} 
                   color={getSeverityColor(alert?.severity)} 
                 />

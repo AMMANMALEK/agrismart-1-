@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
+import { apiGet } from '../../../lib/api';
+
+
 const CropYieldCard = () => {
-  const yieldData = [
-    { crop: 'Wheat', current: 85, predicted: 92, increase: 8.2 },
-    { crop: 'Rice', current: 78, predicted: 88, increase: 12.8 },
-    { crop: 'Corn', current: 92, predicted: 95, increase: 3.3 },
-    { crop: 'Soybean', current: 76, predicted: 84, increase: 10.5 }
-  ];
+  const [yieldData, setYieldData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchYield() {
+      setLoading(true);
+      setError(null);
+      try {
+        // Adjust endpoint as per your backend API docs
+        const data = await apiGet('/crop-yield');
+        setYieldData(data?.yields || []);
+      } catch (e) {
+        setError('Failed to load crop yield data');
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchYield();
+  }, []);
+
 
   const getStatusColor = (increase) => {
     if (increase >= 10) return 'var(--color-success)';
@@ -22,6 +40,12 @@ const CropYieldCard = () => {
     return 'TrendingDown';
   };
 
+  if (loading) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">Loading crop yield...</div>;
+  }
+  if (error) {
+    return <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural text-red-500">{error}</div>;
+  }
   return (
     <div className="bg-card rounded-lg border border-border p-6 shadow-agricultural">
       <div className="flex items-center justify-between mb-6">
